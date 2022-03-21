@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <errno.h>
 #include <string.h>
-#include "../pwd_cmd/pwd.c"
+//#include "../pwd_cmd/pwd.c"
 
 void cd(char *path)
 {
@@ -29,9 +29,9 @@ int main(int argc, char *argv[])
 {
     if(argc==2)
     {
-         pwd();
+  //       pwd();
          cd(argv[1]);
-         pwd();
+    //     pwd();
          return 1;
     }
     else
