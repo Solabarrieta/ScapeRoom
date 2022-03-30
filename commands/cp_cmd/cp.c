@@ -7,14 +7,14 @@ int main(int argc, char **argv)
 {
     char buffer[1024];
     int files[2];
-    //ssize_t count;
+    ssize_t count;
 
     if (argc < 3)
         return -1;
     files[0] = open(argv[1], O_RDONLY);
     if (files[0] == -1)
         return -1;
-    files[1] = open(argv[2], O_WRONLY | O_CREAT | S_IRWXU | S_IRUSR  | S_IRGRP | S_IROTH);
+    files[1] = open(argv[2], O_WRONLY | O_CREAT | S_IRWXU | S_IRUSR | S_IRGRP | S_IROTH);
     if (files[1] == -1)
     {
         close(files[0]);
