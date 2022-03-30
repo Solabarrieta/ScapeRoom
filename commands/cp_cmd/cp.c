@@ -7,7 +7,7 @@ int main(int argc, char **argv)
 {
     char buffer[1024];
     int files[2];
-    ssize_t count;
+    //ssize_t count;
 
     if (argc < 3)
         return -1;
@@ -23,6 +23,5 @@ int main(int argc, char **argv)
 
     while ((count = read(files[0], buffer, sizeof(buffer))) != 0)
         write(files[1], buffer, count);
-
     return 0;
 }
