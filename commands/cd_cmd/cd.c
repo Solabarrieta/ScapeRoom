@@ -29,14 +29,14 @@ int main(int argc, char *argv[])
 {
     if(argc==2)
     {
-  //       pwd();
+        // pwd();
          cd(argv[1]);
-    //     pwd();
+        // pwd();
          return 1;
     }
     else
     {
-        write(1,"Error : pwd should have only one arguments\n",55);
+        write(1,"Error : cd should have one argument\n",48);
         return 0;
     }
 }
