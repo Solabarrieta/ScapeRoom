@@ -96,24 +96,75 @@ int execute(int argc, char *argv[])
     default:
         // Parent process execution.
         // Wait until child process terminates.
-        wait(&status);
+        //wait(&status);
         return status;
     }
 }
 
-main()
+int check_cmd(char *cmd,char *cmd_list[3])
 {
-    char *Prompt = "ScapeRoom -> ";
+    int i;
+    for(i=0;i<3;i++)
+    {
+        if(strcmp(cmd,cmd_list[i])==0)
+            return i;
+    }
+    return -1;
+
+}
+
+int main()
+{
+
     int eof = 0;
     int argc;
     char *args[MAXARGS];
+    char *cmd_list[3]={"pwd","cd","cp"};
+    int cmd_num;
+
+    char current_directory[256];
+    getcwd(current_directory,sizeof(current_directory));
+
+    //char *Prompt = "ScapeRoom -> ";
+    char *Prompt = current_directory;
+   // sc
+
+    //create path to the game directory
+    char *egypte_path=current_directory;
+    strcat(egypte_path,"/Egypt");
+
+    chdir(egypte_path);
+     strcat(egypte_path,"--->$ ");
 
     while (1)
     {
-        write(0, Prompt, strlen(Prompt));
+        //write(0, Prompt, strlen(Prompt));
+        write(0, Prompt, strlen(egypte_path));
+
+        // write(1,"dddddddddddddddd77d",20);
         if (read_args(&argc, args, MAXARGS, &eof) && argc > 0)
         {
-            execute(argc, args);
+            cmd_num=check_cmd(args[0],cmd_list);
+            if(cmd_num!=-1)
+            {
+                //commands/pwd_cmd/pwd"
+                strcpy(args[0],"../commands/");
+                strcat(args[0],cmd_list[cmd_num]);
+                strcat(args[0],"_cmd/");
+                strcat(args[0],cmd_list[cmd_num]);
+                execute(argc, args);
+               // Prompt = current_directory;
+            }
+
+            /*if(!strcmp(args[0],"pwd"))
+            {
+                //write(1,"ddddddddddddddddd",20);
+                strcpy(args[0],"commands/pwd_cmd/pwd");
+                execute(argc, args);
+            }*/
+            else
+                write(1,"Command Not Found\n ",20);
+
         }
         if (eof)
             exit(0);
