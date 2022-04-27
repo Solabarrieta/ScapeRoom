@@ -16,7 +16,7 @@ void cat(char filename[50])
 
     if(fd != -1)
     {
-
+write(1,"\n",strlen("\n"));
         do{
 
             bytestoread=read(fd,c,1);

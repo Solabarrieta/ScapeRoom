@@ -1,12 +1,4 @@
-<<<<<<< HEAD
-void _ls(char *dir, int a, int l)
-{
-}
 
-int main(int argc, char **argv)
-{
-}
-=======
 #include <unistd.h>
 #include <stdio.h>
 #include <string.h>
@@ -74,10 +66,3 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-
-
-
-
-
-
->>>>>>> 7fc4e9b51f456081e946064772cea4adbc2667e1
