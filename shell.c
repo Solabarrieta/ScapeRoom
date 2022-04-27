@@ -102,10 +102,11 @@ int execute(int argc, char *argv[])
     }
 }
 
-int check_cmd(char *cmd,char *cmd_list[3])
+int check_cmd(char *cmd,char *cmd_list[4])
 {
+    //int size= sizeof(cmd_list[0])/sizeof(cmd_list[0][0]);
     int i;
-    for(i=0;i<3;i++)
+    for(i=0;i<4;i++)
     {
         if(strcmp(cmd,cmd_list[i])==0)
             return i;
@@ -120,7 +121,7 @@ int main()
     int eof = 0;
     int argc;
     char *args[MAXARGS];
-    char *cmd_list[2]={"pwd","cp"};
+    char *cmd_list[4]={"pwd","cp","ls","cat"};
     int cmd_num;
 
     char current_directory[256];
@@ -145,7 +146,7 @@ int main()
         strcpy(Prompt,current_directory);
         strcat(Prompt," $ ");
         write(0, Prompt, strlen(Prompt));
-
+        //cmd_num=-1;
         if (read_args(&argc, args, MAXARGS, &eof) && argc > 0)
         {
             cmd_num=check_cmd(args[0],cmd_list);
@@ -168,7 +169,6 @@ int main()
 
             else if(cmd_num!=-1)
             {
-
                 args[0] = (char *)malloc(strlen(home_dir)+ strlen(cmd_list[cmd_num]) + strlen("/bin/"));
 
                 strcpy(args[0],home_dir);
@@ -176,7 +176,7 @@ int main()
                 execute(argc, args);
 
             }
-            else
+            else if(cmd_num==-1)
                 write(1,"Command Not Found\n ",18);
 
         }
