@@ -12,24 +12,24 @@
 10. touch.
 
 ## System calls
-• **open**
-• **read**
-• **write**
-• **close**
-• link
-• unlink
-• stat
-• **readdir**
-• lseek
+1. **open**
+2. **read**
+3. **write**
+4. **close**
+5. link
+6. unlink
+7. stat
+8. **readdir**
+9. lseek
 
 ## C library functions
-• **opendir**
-• **closedir**
+1. **opendir**
+2. **closedir**
 
 # Process management
 ## System calls
-• **fork**
-• wait (not waitpid nor waitid)
+1. **fork**
+2. wait (not waitpid nor waitid)
 
 ## C library functions
 • execlp or **execvp**
