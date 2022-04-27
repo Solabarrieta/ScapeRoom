@@ -14,7 +14,7 @@ int main(int argc, char **argv)
     files[0] = open(argv[1], O_RDONLY);
     if (files[0] == -1)
         return -1;
-    files[1] = open(argv[2], O_WRONLY | O_CREAT | S_IRWXU | S_IRUSR | S_IRGRP | S_IROTH);
+    files[1] = open(argv[2], O_RDWR | O_CREAT, 0666);
     if (files[1] == -1)
     {
         close(files[0]);
