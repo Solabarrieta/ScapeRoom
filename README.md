@@ -1,5 +1,5 @@
-# Command List
-
+# Input/Output and file system management
+## Command List
 1. **cd**.
 2. **cp**.
 3. **pwd**.
@@ -11,7 +11,7 @@
 9. mv.
 10. touch.
 
-# System calls
+## System calls
 • **open**
 • **read**
 • **write**
@@ -22,13 +22,14 @@
 • **readdir**
 • lseek
 
-# C library functions
+## C library functions
 • **opendir**
 • **closedir**
 
-## Process management
-# System calls
+# Process management
+## System calls
 • **fork**
 • wait (not waitpid nor waitid)
-# C library functions
+
+## C library functions
 • execlp or **execvp**
