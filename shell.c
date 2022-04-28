@@ -7,6 +7,7 @@
 #include <string.h>
 #include <errno.h>
 #include "commands/cd_cmd/cd.c"
+#include "commands/exit_cmd/exit_cmd.c"
 
 #define error(a)   \
     {              \
@@ -97,22 +98,21 @@ int execute(int argc, char *argv[])
     default:
         // Parent process execution.
         // Wait until child process terminates.
-        //wait(&status);
+        // wait(&status);
         return status;
     }
 }
 
-int check_cmd(char *cmd,char *cmd_list[4])
+int check_cmd(char *cmd, char *cmd_list[4])
 {
-    //int size= sizeof(cmd_list[0])/sizeof(cmd_list[0][0]);
+    // int size= sizeof(cmd_list[0])/sizeof(cmd_list[0][0]);
     int i;
-    for(i=0;i<4;i++)
+    for (i = 0; i < 4; i++)
     {
-        if(strcmp(cmd,cmd_list[i])==0)
+        if (strcmp(cmd, cmd_list[i]) == 0)
             return i;
     }
     return -1;
-
 }
 
 int main()
@@ -121,64 +121,64 @@ int main()
     int eof = 0;
     int argc;
     char *args[MAXARGS];
-    char *cmd_list[4]={"pwd","cp","ls","cat"};
+    char *cmd_list[4] = {"pwd", "cp", "ls", "cat"};
     int cmd_num;
 
     char current_directory[256];
-    getcwd(current_directory,sizeof(current_directory));
+    getcwd(current_directory, sizeof(current_directory));
 
     char home_dir[255];
-     getcwd(home_dir,sizeof(home_dir));
-     strcat(home_dir,"/bin/");
+    getcwd(home_dir, sizeof(home_dir));
+    strcat(home_dir, "/bin/");
 
     char *Prompt = current_directory;
 
-    char *egypte_path=current_directory;
-    strcat(egypte_path,"/Egypt");
+    char *egypte_path = current_directory;
+    strcat(egypte_path, "/Egypt");
 
     chdir(egypte_path);
 
-
     while (1)
     {
-        getcwd(current_directory,sizeof(current_directory));
-       Prompt = (char *)malloc(strlen(current_directory));
-        strcpy(Prompt,current_directory);
-        strcat(Prompt," $ ");
+        getcwd(current_directory, sizeof(current_directory));
+        Prompt = (char *)malloc(strlen(current_directory));
+        strcpy(Prompt, current_directory);
+        strcat(Prompt, " $ ");
         write(0, Prompt, strlen(Prompt));
-        //cmd_num=-1;
+        // cmd_num=-1;
         if (read_args(&argc, args, MAXARGS, &eof) && argc > 0)
         {
-            cmd_num=check_cmd(args[0],cmd_list);
-            if(!strcmp(args[0],"cd"))
+            cmd_num = check_cmd(args[0], cmd_list);
+            if (!strcmp(args[0], "cd"))
             {
 
-                if(argc==2)
+                if (argc == 2)
                 {
                     cd(args[1]);
-
                 }
                 else
                 {
-                    write(1,"Error : cd should have one argument\n",37);
-
+                    write(1, "Error : cd should have one argument\n", 37);
+                }
+            }
+            else if (!strcmp(args[0], "exit"))
+            {
+                if (exit_cmd())
+                {
+                    exit(127);
                 }
             }
 
-
-
-            else if(cmd_num!=-1)
+            else if (cmd_num != -1)
             {
-                args[0] = (char *)malloc(strlen(home_dir)+ strlen(cmd_list[cmd_num]) + strlen("/bin/"));
+                args[0] = (char *)malloc(strlen(home_dir) + strlen(cmd_list[cmd_num]) + strlen("/bin/"));
 
-                strcpy(args[0],home_dir);
-                strcat(args[0],cmd_list[cmd_num]);
+                strcpy(args[0], home_dir);
+                strcat(args[0], cmd_list[cmd_num]);
                 execute(argc, args);
-
             }
-            else if(cmd_num==-1)
-                write(1,"Command Not Found\n ",18);
-
+            else if (cmd_num == -1)
+                write(1, "Command Not Found\n ", 18);
         }
         if (eof)
             exit(0);
