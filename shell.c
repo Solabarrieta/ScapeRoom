@@ -121,7 +121,7 @@ int main()
     int eof = 0;
     int argc;
     char *args[MAXARGS];
-    char *cmd_list[4] = {"pwd", "cp", "ls", "cat"};
+    char *cmd_list[5] = {"pwd", "cp", "ls", "cat", "exit"};
     int cmd_num;
 
     char current_directory[256];
