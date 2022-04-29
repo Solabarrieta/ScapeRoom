@@ -16,8 +16,10 @@ int mv(char *origin_file, char *destination)
     int i,fd1,fd2;
     char* buffer[2];
     //i=link((const char *)origin_file, (const char *)destination);
-    fd1=open(origin_file,O_RDONLY,0777);
-    fd2=creat(destination,0777);
+    fd1=open(origin_file,O_RDONLY);
+    fd2=open(destination,O_WRONLY);
+    if(fd2== -1)
+    fd2 =creat(destination,0666);
     //rename((const char *)fd1,(const char *)fd2);
 
     while(i=read(fd1,buffer,1)>0)
@@ -25,7 +27,8 @@ int mv(char *origin_file, char *destination)
         write(fd2,buffer,1);
 
     }
-    unlink((const char *)origin_file);
+    rename((const char *)origin_file,(const char *)destination);
+    //unlink((const char *)origin_file);
         close(fd1);
         close(fd2);
     //if(errno==EEXIST)

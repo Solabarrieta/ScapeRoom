@@ -12,9 +12,9 @@ int exit_cmd()
         {
             return 1;
         }
-        else
+        else if(answer == 'n')
         {
             return 0;
         }
-    } while (answer != 'y' || answer != 'n');
+    } while (answer != 'y' && answer != 'n');
 }

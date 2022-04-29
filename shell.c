@@ -103,11 +103,11 @@ int execute(int argc, char *argv[])
     }
 }
 
-int check_cmd(char *cmd, char *cmd_list[4])
+int check_cmd(char *cmd, char *cmd_list[5])
 {
     // int size= sizeof(cmd_list[0])/sizeof(cmd_list[0][0]);
     int i;
-    for (i = 0; i < 4; i++)
+    for (i = 0; i < 5; i++)
     {
         if (strcmp(cmd, cmd_list[i]) == 0)
             return i;
@@ -121,7 +121,7 @@ int main()
     int eof = 0;
     int argc;
     char *args[MAXARGS];
-    char *cmd_list[5] = {"pwd", "cp", "ls", "cat", "exit"};
+    char *cmd_list[5] = {"pwd", "cp", "ls", "cat","touch"};
     int cmd_num;
 
     char current_directory[256];
@@ -163,10 +163,18 @@ int main()
             }
             else if (!strcmp(args[0], "exit"))
             {
-                if (exit_cmd())
+                if (argc == 1)
                 {
-                    exit(127);
+                    if (exit_cmd())
+                    {
+                        exit(127);
+                    }
                 }
+                else
+                {
+                    write(1, "Error : exit doesn t have argument\n", 37);
+                }
+
             }
 
             else if (cmd_num != -1)
