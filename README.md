@@ -5,11 +5,11 @@
 3. **pwd**.
 4. **cat**.
 5. **ls**.
-6. exit.
+6. **exit**.
 7. menu.
 8. man.
 9. mv.
-10. touch.
+10. **touch**.
 
 ## System calls
 1. **open**
@@ -18,9 +18,10 @@
 4. **close**
 5. link
 6. unlink
-7. stat
+7. **stat**
 8. **readdir**
 9. lseek
+10. **chmod**
 
 ## C library functions
 1. **opendir**
