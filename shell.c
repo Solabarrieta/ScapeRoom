@@ -9,6 +9,7 @@
 #include "commands/cd_cmd/cd.c"
 #include "commands/exit_cmd/exit_cmd.c"
 #include "DirName.c"
+#include "functions/printScript.c"
 
 #define error(a)   \
     {              \
@@ -108,7 +109,7 @@ int check_cmd(char *cmd, char *cmd_list[4])
 {
     // int size= sizeof(cmd_list[0])/sizeof(cmd_list[0][0]);
     int i;
-    for (i = 0; i < 4; i++)
+    for (i = 0; i < 7; i++)
     {
         if (strcmp(cmd, cmd_list[i]) == 0)
             return i;
@@ -122,7 +123,7 @@ int main()
     int eof = 0;
     int argc;
     char *args[MAXARGS];
-    char *cmd_list[5] = {"pwd", "cp", "ls", "cat", "exit", "mv"};
+    char *cmd_list[7] = {"pwd", "cp", "ls", "cat", "exit", "mv", "Jarvis"};
     int cmd_num;
 
     char current_directory[256];
@@ -138,6 +139,8 @@ int main()
     strcat(egypte_path, "/Egypt");
 
     chdir(egypte_path);
+
+    printScript("../.History/Introduction");
 
     while (1)
     {
@@ -169,6 +172,11 @@ int main()
                 {
                     exit(127);
                 }
+            }
+
+            else if (strcmp(args[0], cmd_list[7]))
+            {
+                printScript("../.Jarvis/Help");
             }
             else if (cmd_num != -1)
             {
