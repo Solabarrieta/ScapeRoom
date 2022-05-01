@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
         int fd_origin, fd_dest, chunk;
         struct stat permissions;
 
-        stat(argv[1], &permissions);
+        /*stat(argv[1], &permissions);
         fd_origin = open(argv[1], O_RDONLY);
         fd_dest = open(argv[2], O_RDWR | O_CREAT, permissions.st_mode);
 
@@ -26,11 +26,10 @@ int main(int argc, char *argv[])
         {
             chunk = read(fd_origin, buffer, sizeof(buffer));
             write(fd_dest, buffer, chunk);
-        } while (chunk != 0);
+        } while (chunk != 0);*/
 
-        close(fd_origin);
+        link(argv[1], argv[2]);
         unlink(argv[1]);
-        close(fd_dest);
 
         return 0;
     }
