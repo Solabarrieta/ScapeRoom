@@ -54,6 +54,6 @@ int printDirName()
 
     getcwd(current_dir, sizeof(current_dir));
     strcpy(current_dir, basename(current_dir));
-    strcat(current_dir, " $ : ");
+    strcat(current_dir, " $  ");
     write(1, current_dir, strlen(current_dir));
 }
