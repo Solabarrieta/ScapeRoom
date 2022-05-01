@@ -105,7 +105,7 @@ int execute(int argc, char *argv[])
     }
 }
 
-int check_cmd(char *cmd, char *cmd_list[4])
+int check_cmd(char *cmd, char *cmd_list[5])
 {
     // int size= sizeof(cmd_list[0])/sizeof(cmd_list[0][0]);
     int i;
@@ -168,9 +168,16 @@ int main()
             }
             else if (!strcmp(args[0], "exit"))
             {
-                if (exit_cmd())
+                if (argc == 1)
                 {
-                    exit(127);
+                    if (exit_cmd())
+                    {
+                        exit(127);
+                    }
+                }
+                else
+                {
+                    write(1, "Error : exit doesn t have argument\n", 37);
                 }
             }
 
