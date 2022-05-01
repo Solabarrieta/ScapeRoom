@@ -8,6 +8,7 @@
 #include <errno.h>
 #include "commands/cd_cmd/cd.c"
 #include "commands/exit_cmd/exit_cmd.c"
+#include "DirName.c"
 
 #define error(a)   \
     {              \
@@ -121,7 +122,7 @@ int main()
     int eof = 0;
     int argc;
     char *args[MAXARGS];
-    char *cmd_list[5] = {"pwd", "cp", "ls", "cat", "exit"};
+    char *cmd_list[5] = {"pwd", "cp", "ls", "cat", "exit", "mv"};
     int cmd_num;
 
     char current_directory[256];
@@ -140,12 +141,13 @@ int main()
 
     while (1)
     {
-        getcwd(current_directory, sizeof(current_directory));
+        /*getcwd(current_directory, sizeof(current_directory));
         Prompt = (char *)malloc(strlen(current_directory));
         strcpy(Prompt, current_directory);
-        strcat(Prompt, " $ ");
-        write(0, Prompt, strlen(Prompt));
-        // cmd_num=-1;
+        strcat(Prompt, " $ ");*/
+        printDirName();
+        // write(0, Prompt, strlen(Prompt));
+        cmd_num = -1;
         if (read_args(&argc, args, MAXARGS, &eof) && argc > 0)
         {
             cmd_num = check_cmd(args[0], cmd_list);
@@ -168,7 +170,6 @@ int main()
                     exit(127);
                 }
             }
-
             else if (cmd_num != -1)
             {
                 args[0] = (char *)malloc(strlen(home_dir) + strlen(cmd_list[cmd_num]) + strlen("/bin/"));
