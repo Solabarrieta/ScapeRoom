@@ -105,7 +105,7 @@ int execute(int argc, char *argv[])
     }
 }
 
-int check_cmd(char *cmd, char *cmd_list[5])
+int check_cmd(char *cmd, char *cmd_list[7])
 {
     // int size= sizeof(cmd_list[0])/sizeof(cmd_list[0][0]);
     int i;
@@ -181,7 +181,7 @@ int main()
                 }
             }
 
-            else if (strcmp(args[0], cmd_list[7]))
+            else if (strcmp(args[0], cmd_list[6])==0)
             {
                 printScript("../.Jarvis/Help");
             }
