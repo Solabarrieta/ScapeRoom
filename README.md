@@ -6,17 +6,18 @@
 4. **cat**.
 5. **ls**.
 6. **exit**.
-7. menu.
-8. man.
-9. mv.
-10. **touch**.
+7. **touch**.
+8. grep.
+9. mkdir.  
+10. man.
+11. mv.
 
 ## System calls
 1. **open**
 2. **read**
 3. **write**
 4. **close**
-5. link
+5. **link**
 6. unlink
 7. **stat**
 8. **readdir**
