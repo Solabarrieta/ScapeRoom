@@ -16,7 +16,7 @@
 2. **read**
 3. **write**
 4. **close**
-5. link
+5. **link**
 6. unlink
 7. **stat**
 8. **readdir**
