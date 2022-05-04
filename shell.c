@@ -140,14 +140,15 @@ int main()
 
     chdir(egypte_path);
 
+    printScript("../.History/Menu.txt");
     printScript("../.History/Introduction");
 
     while (1)
     {
-        /*getcwd(current_directory, sizeof(current_directory));
+        getcwd(current_directory, sizeof(current_directory));
         Prompt = (char *)malloc(strlen(current_directory));
         strcpy(Prompt, current_directory);
-        strcat(Prompt, " $ ");*/
+        strcat(Prompt, " $ ");
         printDirName();
         // write(0, Prompt, strlen(Prompt));
         cmd_num = -1;
@@ -177,13 +178,14 @@ int main()
                 }
                 else
                 {
-                    write(1, "Error : exit doesn t have argument\n", 37);
+                    char *error = "Error : exit doesn t have argument\n";
+                    write(1, error, strlen(error));
                 }
             }
 
-            else if (strcmp(args[0], cmd_list[6])==0)
+            else if (strcmp(args[0], cmd_list[6]) == 0)
             {
-                printScript("../.Jarvis/Help");
+                printScript("../../.Jarvis/Help");
             }
             else if (cmd_num != -1)
             {

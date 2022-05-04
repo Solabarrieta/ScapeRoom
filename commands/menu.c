@@ -4,16 +4,16 @@
  * @brief Menu file, for the scaperoom.
  * @version 0.1
  * @date 2022-04-27
- * 
+ *
  * @copyright Copyright (c) 2022
- * 
+ *
  */
 
-#include "headers/libstring/libstring.h"
+#include <string.h>
 
 /**
-* @brief The menu screen!
-*/
+ * @brief The menu screen!
+ */
 void print_menu()
 {
     println("                              *                                  ");
@@ -32,4 +32,9 @@ void print_menu()
     println("***************************************************************  ");
     println("***************************************************************  ");
     println("***************************************************************  ");
+}
+
+int main(int argc, char *argv[])
+{
+    print_menu();
 }

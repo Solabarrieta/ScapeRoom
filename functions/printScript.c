@@ -2,12 +2,27 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <string.h>
+#include <stdlib.h>
+#include <limits.h>
 
-void printScript(char *pathName)
+void printScript(char *relPath)
 {
     char buffer[124];
     int fd, fd2, size;
-    fd = open(pathName, O_RDONLY);
+
+    char *path = realpath(relPath, NULL);
+
+    fd = open(path, O_RDONLY);
+
+    if (path == NULL)
+    {
+        printf("cannot find file with name[%s]\n", relPath);
+    }
+    else
+    {
+        printf("path[%s]\n", path);
+        free(path);
+    }
 
     /*while ((count = read(fd, buffer, sizeof(buffer))) != 0)
     {
@@ -25,4 +40,15 @@ void printScript(char *pathName)
 /*int main(int argc, char *argv[])
 {
     printScript(argv[1]);
+    char filename[] = "../.Jarvis/Help";
+    char *path = realpath(filename, NULL);
+    if (path == NULL)
+    {
+        printf("cannot find file with name[%s]\n", filename);
+    }
+    else
+    {
+        printf("path[%s]\n", path);
+        free(path);
+    }
 }*/
