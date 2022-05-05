@@ -15,8 +15,8 @@ int main(int argc, char *argv[])
     {
 
         char buffer[1024];
-        int fd_origin, fd_dest, chunk;
-        struct stat permissions;
+        //int fd_origin, fd_dest, chunk;
+        //struct stat permissions;
 
         /*stat(argv[1], &permissions);
         fd_origin = open(argv[1], O_RDONLY);
@@ -28,8 +28,9 @@ int main(int argc, char *argv[])
             write(fd_dest, buffer, chunk);
         } while (chunk != 0);*/
 
-        link(argv[1], argv[2]);
-        unlink(argv[1]);
+        if(link(argv[1], argv[2]))
+            perror("ERROR : can't create a link\n");
+        //unlink(argv[1]);
 
         return 0;
     }

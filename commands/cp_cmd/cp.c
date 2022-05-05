@@ -10,6 +10,7 @@ void cp(char *origin_file, char *dest_file)
 
     char buffer[1024];
     int files[2];
+    int state;
     ssize_t count;
     struct stat info;
 
@@ -23,11 +24,14 @@ void cp(char *origin_file, char *dest_file)
         close(files[0]);
         exit(23);
     }
-    files[1] = open(dest_file, O_RDWR | O_CREAT, 0777);
-    if (files[1] == -1)
+    //files[1] = open(dest_file, O_RDWR | O_CREAT, 0777);
+    state=link(origin_file, dest_file);
+    //if (files[1] == -1)
+    if(state!=0)
     {
-        write(1, "Error while opening the second file\n", strlen("Error while opening the second file\n"));
-        close(files[1]);
+        perror("Error ");
+        write(1,"\n",strlen("\n"));
+        //close(files[1]);
         exit(23);
     }
     else
