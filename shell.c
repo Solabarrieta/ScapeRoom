@@ -10,6 +10,7 @@
 #include "commands/exit_cmd/exit_cmd.c"
 #include "DirName.c"
 #include "functions/printScript.c"
+#include "functions/free_inventory.c"
 
 #define error(a)   \
     {              \
@@ -123,10 +124,13 @@ int main()
     int eof = 0;
     int argc;
     char *args[MAXARGS];
-    char *cmd_list[8] = {"pwd", "cp", "ls", "cat", "exit", "mv","Jarvis" ,"grep"};
+    char *cmd_list[8] = {"pwd", "cp", "ls", "cat", "exit", "mv", "Jarvis", "grep"};
     int cmd_num;
 
     char current_directory[256];
+    system("rm -r Egypt");
+    system("cp -r ../EgyptLog/Egypt .");
+
     getcwd(current_directory, sizeof(current_directory));
 
     char home_dir[255];
@@ -173,7 +177,10 @@ int main()
                 {
                     if (exit_cmd())
                     {
-                        exit(127);
+                        if (!free_inventory())
+                        {
+                            exit(127);
+                        }
                     }
                 }
                 else
