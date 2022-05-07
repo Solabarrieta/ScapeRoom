@@ -3,16 +3,17 @@
 int exit_cmd()
 {
     char answer;
+    char *msg = "Do you really want to exit the game?[y/n]: ";
 
     do
     {
-        printf("Do you really want to exit the game?[y/n]: ");
+        write(1, msg, strlen(msg));
         scanf(" %c", &answer);
         if (answer == 'y')
         {
             return 1;
         }
-        else if(answer == 'n')
+        else if (answer == 'n')
         {
             return 0;
         }
