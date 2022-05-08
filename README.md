@@ -7,10 +7,9 @@
 5. **ls**.
 6. **exit**.
 7. **touch**.
-8. grep.
-9. mkdir.  
-10. man.
-11. mv.
+8. **grep**. 
+9. **man**.
+10. **mv**.
 
 ## System calls
 1. **open**
@@ -18,7 +17,7 @@
 3. **write**
 4. **close**
 5. **link**
-6. unlink
+6. **unlink**
 7. **stat**
 8. **readdir**
 9. lseek
