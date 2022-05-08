@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <limits.h>
 #include "../../functions/useful_functions.c"
 #include "../../functions/printScript.c"
 
@@ -17,18 +18,26 @@ void man(char *cmd_name)
     char home_dir[255];
 
     getcwd(home_dir, sizeof(home_dir));
-    //strcat(home_dir, "/Docs/");
+    char *cut=strstr(home_dir,"/ScapeRoom");
 
-    cmd_num = check_cmd(cmd_name, cmd_list);
-    if (cmd_num != -1)
+    manual_path = (char *)malloc(strlen(home_dir) + strlen(cmd_list[cmd_num]) + strlen("/Docs/"));
+
+    strncpy(manual_path,home_dir,cut-home_dir);
+    strcat(manual_path, "/ScapeRoom/Docs/");
+
+    if(strcmp(cmd_name,"cd")==0)
     {
-        manual_path = (char *)malloc(strlen(home_dir) + strlen(cmd_list[cmd_num]) + strlen("/Docs/"));
-         strcat(home_dir, "/../..");
-         strcat(home_dir, "/Docs/");
-        strcpy(manual_path, home_dir);
+        strcat(manual_path, "cd");
+
+        printScript(manual_path);
+    }
+    else
+        cmd_num = check_cmd(cmd_name, cmd_list);
+    if (cmd_num != -1 && strcmp(cmd_name,"cd")!=0)
+{
+
         strcat(manual_path, cmd_list[cmd_num]);
 
-        //manual_path+=(strlen(manual_path)-strlen("/commands/man_cmd"));
         printScript(manual_path);
     }
     else if (cmd_num == -1)
