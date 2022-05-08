@@ -1,0 +1,32 @@
+GREP(1)                                     User Commands                                     GREP(1)
+
+NAME
+       grep - print lines that match patterns
+
+SYNOPSIS
+       grep [OPTION...] PATTERNS [FILE...]
+     
+
+DESCRIPTION
+       grep  searches  for  PATTERNS  in  each  FILE.   PATTERNS is one or more patterns separated by
+       newline characters, and grep prints each line that  matches  a  pattern.   Typically  PATTERNS
+       should be quoted when grep is used in a shell command.
+              Print  NUM  lines  of  output context.  Places a line containing a group separator (--)
+              between contiguous groups of matches.  With the -o or --only-matching option, this  has
+              no effect and a warning is given.
+	
+AUTHOR
+       Written by El Mehdi KIOUANE, Oier Solabarrieta, Ainara Escribano Viteri, Ane Amengual and Alex Garcia.
+
+REPORTING BUGS
+       El Mehdi KIOUANE : kiouane50@gmail.com
+       Oier Solabarrieta: oieruni22@gmail.com
+
+COPYRIGHT
+       Copyright © 2022 Free Software.
+       <https://github.com/Solabarrieta/ScapeRoom>.
+       This  is  free software: you are free to change and redistribute it.  There is NO WARRANTY, to
+       the extent permitted by law.
+
+
+GNU coreutils 8.30                          UPV/EHU 2022  

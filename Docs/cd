@@ -1,0 +1,26 @@
+NAME
+       cd - “change directory” command is used to change the current working directory
+
+SYNOPSIS
+       cd   [FOLDER]  
+
+DESCRIPTION
+        test test test test test test test test test test test
+        test test test test test test test test test test test test
+        test test test test test test test test test test
+	
+AUTHOR
+       Written by El Mehdi KIOUANE, Oier Solabarrieta, Ainara Escribano Viteri, Ane Amengual and Alex Garcia.
+
+REPORTING BUGS
+       El Mehdi KIOUANE : kiouane50@gmail.com
+       Oier Solabarrieta: oieruni22@gmail.com
+
+COPYRIGHT
+       Copyright © 2022 Free Software.
+       <https://github.com/Solabarrieta/ScapeRoom>.
+       This  is  free software: you are free to change and redistribute it.  There is NO WARRANTY, to
+       the extent permitted by law.
+
+
+GNU coreutils 8.30                          UPV/EHU 2022  

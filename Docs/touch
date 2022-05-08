@@ -1,0 +1,30 @@
+TOUCH(1)                                    User Commands                                    TOUCH(1)
+
+NAME
+       touch - change file timestamps
+
+SYNOPSIS
+       touch FILE...
+
+DESCRIPTION
+       Update the access and modification times of each FILE to the current time.
+
+       A FILE argument that does not exist is created empty, unless -c or -h is supplied.
+
+       Mandatory arguments to long options are mandatory for short options too.
+	
+AUTHOR
+       Written by El Mehdi KIOUANE, Oier Solabarrieta, Ainara Escribano Viteri, Ane Amengual and Alex Garcia.
+
+REPORTING BUGS
+       El Mehdi KIOUANE : kiouane50@gmail.com
+       Oier Solabarrieta: oieruni22@gmail.com
+
+COPYRIGHT
+       Copyright © 2022 Free Software.
+       <https://github.com/Solabarrieta/ScapeRoom>.
+       This  is  free software: you are free to change and redistribute it.  There is NO WARRANTY, to
+       the extent permitted by law.
+
+
+GNU coreutils 8.30                          UPV/EHU 2022  

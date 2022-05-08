@@ -19,11 +19,11 @@ int isDir(char *filename)
 }
 
 //function to check if cmd exists in cmd_list
-int check_cmd(char *cmd, char *cmd_list[10])
+int check_cmd(char *cmd, char *cmd_list[9])
 {
     // int size= sizeof(cmd_list[0])/sizeof(cmd_list[0][0]);
     int i;
-    for (i = 0; i < 10; i++)
+    for (i = 0; i < 9; i++)
     {
         if (strcmp(cmd, cmd_list[i]) == 0)
             return i;
