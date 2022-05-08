@@ -2,6 +2,10 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdio.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <stdlib.h>
+#include "../.Global/global.c"
 
 int free_inventory()
 {
@@ -11,14 +15,24 @@ int free_inventory()
     char *currPath;
     char size[256];
     getcwd(currPath, sizeof(size));
-    // write(1, currPath, strlen(currPath));
+    // char *inventory = inv_path;
 
     if ((dir = opendir(invPath)) != NULL)
     {
         chdir(invPath);
         while ((ent = readdir(dir)) != NULL)
         {
+            /*  char buffer[256], *pathHome;
+              int fileD, count;
 
+              fileD = open(ent->d_name, O_RDONLY);
+              while ((count = read(fileD, buffer, sizeof(buffer))) != 0)
+              {
+                  strcat(pathHome, buffer);
+              }
+              printf("%s  %s", pathHome, inventory);
+              /*strcat(inventory, ent->d_name);
+              int result = link(pathHome, inventory);*/
             if (strcmp(ent->d_name, "..") != 0 && strcmp(ent->d_name, ".") != 0)
             {
                 unlink(ent->d_name);
@@ -32,3 +46,8 @@ int free_inventory()
         return -1;
     }
 }
+
+/*int main(int argc, char *argv[])
+{
+    free_inventory();
+}*/
