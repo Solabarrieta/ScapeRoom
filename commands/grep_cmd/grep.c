@@ -17,7 +17,7 @@ Cyan \033[0;36m
 White \033[0;37m
 Reset \033[0;0m
 */
-void grep(char *word, char *filename)
+void grep(char *word, char *filename, char *option)
 {
     FILE *fp= fopen(filename, "r");
     char *line;
@@ -40,20 +40,23 @@ void grep(char *word, char *filename)
 
                 //to split the line into words
                 char *ptr=strtok(line," ");
-
-                while(ptr!=NULL)
+                if(strcmp(option," ")==0)
                 {
-                    if(strcmp(word,ptr)==0)
+                    while(ptr!=NULL)
                     {
-                        printf("\033[0;31m");
-                        printf("%s ",ptr);
-                        printf("\033[0;0m");
-                    }
-                    else
-                        printf("%s ",ptr);
-                    ptr=strtok(NULL," ");
+                        if(strcmp(word,ptr)==0)
+                        {
+                            printf("\033[0;31m");
+                            printf("%s ",ptr);
+                            printf("\033[0;0m");
+                        }
+                        else
+                            printf("%s ",ptr);
+                        ptr=strtok(NULL," ");
 
+                    }
                 }
+
                 count++;
             }
 
@@ -61,22 +64,45 @@ void grep(char *word, char *filename)
     }
     else if(errno==ENOENT)
         write(1,"File does not exist\n",strlen("File does not exist\n"));
-if(fp != NULL)
-    fclose(fp);
+    if(fp != NULL)
+        fclose(fp);
+    if(strcmp(option,"-c")==0)
+    {
+        printf("the word \"%s\" is repeated ",word);
+        printf("\033[0;31m");
+        printf("%d",count);
+        printf("\033[0;0m");
+        printf(" time in \"%s\" \n",filename);
+    }
+
+
+    //return count;
 
 }
 
 int main(int argc, char **argv)
 {
+    //int count;
     if (argc == 3)
     {
-        grep(argv[1], argv[2]);
+        grep(argv[1], argv[2]," ");
         return 1;
     }
-    /*else if(argc == 4)
+    else if(argc == 4)
     {
+        if(strcmp(argv[1],"-c")==0)
+        {
 
-    }*/
+            grep(argv[2], argv[3],argv[1]);
+            return 1;
+        }
+        else
+        {
+            write(1, "error in the option use \"-c\" \n", strlen("error in the option use \"-c\" \n"));
+            return 0;
+        }
+
+    }
     else
     {
         write(1, "error in the number of arguments\n", strlen("error in the number of arguments\n"));

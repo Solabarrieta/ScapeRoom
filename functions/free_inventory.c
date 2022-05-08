@@ -11,7 +11,12 @@ int free_inventory()
 {
     DIR *dir;
     struct dirent *ent;
-    char *invPath = "/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/.inventory";
+
+    char home_dir[255];
+    getcwd(home_dir, sizeof(home_dir));
+
+    //char *invPath = "/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/.inventory";
+    char *invPath = strcat(home_dir, "/.inventory");
     char *currPath;
     char size[256];
     getcwd(currPath, sizeof(size));

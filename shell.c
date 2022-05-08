@@ -6,11 +6,13 @@
 #include <unistd.h>
 #include <string.h>
 #include <errno.h>
+//#include ".Global/global.h"
 #include "commands/cd_cmd/cd.c"
 #include "commands/exit_cmd/exit_cmd.c"
 #include "DirName.c"
 #include "functions/printScript.c"
 #include "functions/free_inventory.c"
+#include "functions/useful_functions.c"
 
 #define error(a)   \
     {              \
@@ -106,17 +108,6 @@ int execute(int argc, char *argv[])
     }
 }
 
-int check_cmd(char *cmd, char *cmd_list[8])
-{
-    // int size= sizeof(cmd_list[0])/sizeof(cmd_list[0][0]);
-    int i;
-    for (i = 0; i < 8; i++)
-    {
-        if (strcmp(cmd, cmd_list[i]) == 0)
-            return i;
-    }
-    return -1;
-}
 
 int main()
 {
@@ -124,18 +115,31 @@ int main()
     int eof = 0;
     int argc;
     char *args[MAXARGS];
-    char *cmd_list[8] = {"pwd", "cp", "ls", "cat", "exit", "mv", "Jarvis", "grep"};
+    char *cmd_list[10] = {"pwd", "cp", "ls", "cat", "exit", "mv", "Jarvis", "grep","mkdir","man"};
     int cmd_num;
 
     char current_directory[256];
     system("rm -r Egypt");
-    system("cp -r ../EgyptLog/Egypt .");
+    system("cp -r EgyptLog/Egypt .");
 
     getcwd(current_directory, sizeof(current_directory));
 
     char home_dir[255];
+    char jarvis_path[255];
+    char menu_path[255];
+    char introduction_path[255];
+
     getcwd(home_dir, sizeof(home_dir));
+    strcpy(jarvis_path,home_dir);
+    strcpy(menu_path,home_dir);
+    strcpy(introduction_path,home_dir);
+
     strcat(home_dir, "/bin/");
+
+
+    strcat(jarvis_path,"/.Jarvis/Help");
+    strcat(menu_path,"/.History/Menu.txt");
+    strcat(introduction_path,"/.History/Introduction");
 
     char *Prompt = current_directory;
 
@@ -144,8 +148,8 @@ int main()
 
     chdir(egypte_path);
 
-    printScript("../.History/Menu.txt");
-    printScript("../.History/Introduction");
+    printScript(menu_path);
+    printScript(introduction_path);
 
     while (1)
     {
@@ -177,10 +181,10 @@ int main()
                 {
                     if (exit_cmd())
                     {
-                        if (!free_inventory())
-                        {
+                        //if (!free_inventory())
+                        //{
                             exit(127);
-                        }
+                        //}
                     }
                 }
                 else
@@ -192,7 +196,8 @@ int main()
 
             else if (strcmp(args[0], cmd_list[6]) == 0)
             {
-                printScript("../../.Jarvis/Help");
+
+                printScript(jarvis_path);
             }
             else if (cmd_num != -1)
             {

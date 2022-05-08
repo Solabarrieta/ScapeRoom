@@ -10,12 +10,11 @@ void cp(char *origin_file, char *dest_file)
 
     char buffer[1024];
     int files[2];
-    int state;
     ssize_t count;
     struct stat info;
 
     files[0] = open(origin_file, O_RDONLY);
-    // get rhe permissions of the origin file
+    //get rhe permissions of the origin file
     stat(origin_file, &info);
 
     if (files[0] == -1)
@@ -25,20 +24,17 @@ void cp(char *origin_file, char *dest_file)
         exit(23);
     }
     files[1] = open(dest_file, O_RDWR | O_CREAT, 0777);
-    // state = link(origin_file, dest_file);
-    //  if (files[1] == -1)
-    /*if (state != 0)
+    if (files[1] == -1)
     {
-        perror("Error ");
-        write(1, "\n", strlen("\n"));
-        // close(files[1]);
+        write(1, "Error while opening the second file\n", strlen("Error while opening the second file\n"));
+        close(files[1]);
         exit(23);
     }
     else
     {
-        // change the permission of the destination file to be like the origin file
-        chmod(dest_file, info.st_mode);
-    }*/
+        //change the permission of the destination file to be like the origin file
+          chmod(dest_file, info.st_mode);
+    }
 
     while ((count = read(files[0], buffer, sizeof(buffer))) != 0)
         write(files[1], buffer, count);
