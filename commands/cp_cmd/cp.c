@@ -47,21 +47,7 @@ int main(int argc, char **argv)
 {
     if (argc == 3)
     {
-        if (!strcmp(argv[2], "inventory"))
-        {
-            if (!strcmp(argv[1], "lighter"))
-            {
-                char *inventory = "../.inventory/lighter";
-                char *msg = "Congratulations! You picked a lighter, now you can burn the hell out of that door!";
-                write(0, msg, strlen(msg));
-                cp(argv[1], inventory);
-                return 1;
-            }
-        }
-        else
-        {
-            cp(argv[1], argv[2]);
-        }
+        cp(argv[1], argv[2]);
         return 1;
     }
     else
