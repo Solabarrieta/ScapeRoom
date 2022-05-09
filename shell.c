@@ -168,7 +168,14 @@ int main()
 
                 if (argc == 2)
                 {
-                    cd(args[1]);
+                    //cd(args[1]);
+                    if(strcmp(args[1],"firstRoom")==0)
+                    {
+                        if(isinInventeroy("key"))
+                            cd(args[1]);
+                         else
+                            write(1, "You don't have the necessary object to enter this room\n", strlen("You don't have the necessary object to enter this room\n"));
+                    }
                 }
                 else
                 {
