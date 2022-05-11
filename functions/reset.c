@@ -12,12 +12,20 @@ int reset()
     char path[256] = HOME;
 
     // Creating the main directories
-    mkdir("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt", S_IRWXU);
+   /* mkdir("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt", S_IRWXU);
     mkdir("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid", S_IRWXU);
     mkdir("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom", S_IRWXU);
     mkdir("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom", S_IRWXU);
     mkdir("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/ThirdRoom", S_IRWXU);
-    mkdir("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/ThirdRoom/FinalRoom", S_IRWXU);
+    mkdir("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/ThirdRoom/FinalRoom", S_IRWXU);*/
+
+    mkdir("/home/k1/github_scaperoom/ScapeRoom/Egypt", S_IRWXU);
+    mkdir("/home/k1/github_scaperoom/ScapeRoom/Egypt/Great_Pyramid", S_IRWXU);
+    mkdir("/home/k1/github_scaperoom/ScapeRoom/Egypt/Great_Pyramid/FirstRoom", S_IRWXU);
+    mkdir("/home/k1/github_scaperoom/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom", S_IRWXU);
+    mkdir("/home/k1/github_scaperoom/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/ThirdRoom", S_IRWXU);
+    mkdir("/home/k1/github_scaperoom/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/ThirdRoom/FinalRoom", S_IRWXU);
+
 
     // Creating the files
     //  First Room

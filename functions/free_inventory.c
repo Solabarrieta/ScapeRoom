@@ -16,7 +16,9 @@ int free_inventory()
     getcwd(home_dir, sizeof(home_dir));
 
     // char *invPath = "/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/.inventory";
-    char *invPath = strcat(home_dir, "/.inventory");
+    char *invPath = "/home/k1/github_scaperoom/ScapeRoom/.inventory";
+
+    //char *invPath = strcat(home_dir, "/.inventory");
     char *currPath;
     char size[256];
     getcwd(currPath, sizeof(size));

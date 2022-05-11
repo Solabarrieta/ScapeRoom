@@ -14,7 +14,11 @@
 #include "DirName.c"
 #include "functions/printScript.c"
 #include "functions/free_inventory.c"
-//#include "functions/useful_functions.c"
+#include "functions/useful_functions.c"
+#include "functions/remove.c"
+#include "functions/history.c"
+#include "functions/reset.c"
+#include "functions/remove_history_file.c"
 
 #define error(a)   \
     {              \
@@ -165,6 +169,8 @@ int main()
     getchar();
     printScript(introduction_path);
 
+    remove_history_file();
+
     while (1)
     {
         getcwd(current_directory, sizeof(current_directory));
@@ -176,7 +182,7 @@ int main()
         cmd_num = -1;
         if (read_args(&argc, args, MAXARGS, &eof) && argc > 0)
         {
-            history(argc, args);
+
             cmd_num = check_cmd(args[0], cmd_list);
             if (!strcmp(args[0], "cd"))
             {
@@ -187,7 +193,11 @@ int main()
                     if (strcmp(args[1], "firstRoom") == 0)
                     {
                         if (isinInventeroy("key"))
+                        {
                             cd(args[1]);
+                            history(argc, args);
+                        }
+
                         else
                             write(1, "You don't have the necessary object to enter this room\n", strlen("You don't have the necessary object to enter this room\n"));
                     }
@@ -243,6 +253,7 @@ int main()
                 strcpy(args[0], home_dir);
                 strcat(args[0], cmd_list[cmd_num]);
                 execute(argc, args);
+                history(argc, args);
             }
             else if (cmd_num == -1)
                 write(1, "Command Not Found\n ", 18);
