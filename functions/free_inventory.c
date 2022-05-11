@@ -6,6 +6,8 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include "../.Global/global.c"
+#include "useful_functions.c"
+
 
 int free_inventory()
 {
@@ -13,10 +15,23 @@ int free_inventory()
     struct dirent *ent;
 
     char home_dir[255];
-    getcwd(home_dir, sizeof(home_dir));
-
+char *invPath="/home/k1/github_scaperoom/ScapeRoom/.inventory";
     //char *invPath = "/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/.inventory";
-    char *invPath = strcat(home_dir, "/.inventory");
+   /* getcwd(home_dir, sizeof(home_dir));
+    char *cut=strstr(home_dir,"/ScapeRoom");
+
+    invPath = (char *)malloc(strlen(home_dir) + strlen("/ScapeRoom/"));
+
+    strncpy(invPath,home_dir,cut-home_dir);
+
+    strcat(invPath, "/ScapeRoom/");
+
+
+
+    strcat(invPath, ".inventory");*/
+    printf("\n inv path is = %s \n",invPath);
+    //char *invPath = "/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/.inventory";
+    //char *invPath = strcat(home_dir, "/.inventory");
     char *currPath;
     char size[256];
     getcwd(currPath, sizeof(size));

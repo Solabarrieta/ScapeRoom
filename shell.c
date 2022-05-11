@@ -12,7 +12,7 @@
 #include "DirName.c"
 #include "functions/printScript.c"
 #include "functions/free_inventory.c"
-#include "functions/useful_functions.c"
+//#include "functions/useful_functions.c"
 
 #define error(a)   \
     {              \
@@ -188,10 +188,11 @@ int main()
                 {
                     if (exit_cmd())
                     {
-                        //if (!free_inventory())
-                        //{
+                        //printf("999999");
+                        if (free_inventory()==0)
+                        {
                             exit(127);
-                        //}
+                        }
                     }
                 }
                 else

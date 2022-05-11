@@ -71,9 +71,10 @@ char *getRootPath()
     getcwd(home_dir, sizeof(home_dir));
     char *cut=strstr(home_dir,"/ScapeRoom");
 
-    root_path = (char *)malloc(strlen(home_dir) + strlen("/ScapeRoom/"));
+    root_path = (char *)malloc(strlen(home_dir) + strlen("/ScapeRoom/")-strlen(cut));
 
     strncpy(root_path,home_dir,cut-home_dir);
+
     strcat(root_path, "/ScapeRoom/");
 
     return root_path;
