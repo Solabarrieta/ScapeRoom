@@ -30,7 +30,18 @@
 # Process management
 ## System calls
 1. **fork**
-2. wait (not waitpid nor waitid)
+2. **wait**
 
 ## C library functions
 • execlp or **execvp**
+
+• There should be an option to concatenate commands with pipes.
+• **Each of the commands created should work on their own, they should be independent
+programs.**
+• The users should have the option to list the last movements done (last commands used).
+• **All possible error should be handled and users should be informed about the reason of the
+error. For example:
+▪ $ ls añsldk
+ls: cannot access añsldk: No such file or directory**
+• **Every command should have a man page with its specification.(not completed)**
+• The code should work on the course server (dif-linuxserver.ehu.es).
