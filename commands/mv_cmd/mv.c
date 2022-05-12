@@ -98,7 +98,49 @@ int main(int argc, char **argv)
              if (!strcmp(argv[1], "tombsTones"))
             {
                 char *inventory = "../.inventory/tombsTones";
-                char *msg = "There is a description of the death in each of them. Nothing interesting,...";
+                char *msg = "There is a description of the deaths in each of them, with their name and death date. Nothing interesting,...";
+                write(0, msg, strlen(msg));
+                return 1;
+            }
+            if (!strcmp(argv[1], "gold coins"))
+            {
+                char *inventory = "../.inventory/gold coins";
+                char *msg = "There is a gigant mount of gold coins from the ancient Egypt. Just coins.";
+                write(0, msg, strlen(msg));
+                return 1;
+            }
+            if (!strcmp(argv[1], "statues"))
+            {
+                char *inventory = "../.inventory/statues";
+                char *msg = "Some statues of women and men, they seem to be pharaohns. Nothing interesting,...";
+                write(0, msg, strlen(msg));
+                return 1;
+            }
+            if (!strcmp(argv[1], "tomb"))
+            {
+                char *inventory = "../.inventory/tomb";
+                char *msg = "In the center of the room is the tomb of the pharaoh, closed. Nolan tries to open it but it's too hard, 
+                so he tries it with a crowbar from his inventory. POW! It opens. A bomb of dust and stink erupts from within. 
+                Once it clears up you can clearly see the pharaoh's mummy clutching the golden egg.";
+                write(0, msg, strlen(msg));
+                return 1;
+            }
+            if (!strcmp(argv[1], "tomb/goldenEgg"))
+            {
+                char *inventory = "../.inventory/tomb/goldenEgg";
+                char *msg = "Nolan, finally, takes the egg. The adventure has end! TinTinTin… Congratulations! You've won!";
+                write(0, msg, strlen(msg));
+                mv(argv[1], inventory);
+                char *msg = "Nolan leaves the pyramid proud of his adventure. On his way back to his plane, he bumps into a 
+                rock and drops the egg off a cliff into a river. The egg ends up being lost forever and Nolan stops being a 
+                thief because of the shame that he feels.";
+                write(0, msg, strlen(msg));
+                return 1;
+            }
+            if (!strcmp(argv[1], "treasure"))
+            {
+                char *inventory = "../.inventory/treasure";
+                char *msg = "There are some treasures, chests full of gold, precious gems such as ruby-s, esmeralds,... The egg isn't here.";
                 write(0, msg, strlen(msg));
                 return 1;
             }

@@ -6,6 +6,8 @@
 #include <unistd.h>
 #include <string.h>
 #include <errno.h>
+#include <sys/wait.h>
+#include <sys/types.h>
 //#include ".Global/global.h"
 #include "commands/cd_cmd/cd.c"
 #include "commands/exit_cmd/exit_cmd.c"
@@ -83,7 +85,7 @@ int read_args(int *argcp, char *args[], int max, int *eofp)
 
 ///////////////////////////////////////
 
-int execute(int argc, char *argv[])
+void execute(int argc, char *argv[])
 {
     int status;
     int pid = fork();
@@ -92,19 +94,22 @@ int execute(int argc, char *argv[])
     {
     case -1:
         // Error on creating the child process.
-        return 1;
+        write(1,"Failed to Fork()\n",strlen("Failed to Fork()\n"));
+        exit(23);
+        //return 1;
 
     case 0:
         // Child process' program.
         // Execute the give command, if possible.
-        execvp(argv[0], argv);
-        break;
-
+        if(execvp(argv[0], argv)<0){
+            write(1,"Error while executing the command\n",strlen("Error while executing the command\n"));
+            exit(23);
+        }
     default:
         // Parent process execution.
         // Wait until child process terminates.
-        // wait(&status);
-        return status;
+        wait(&status);
+        //write(1,"wait ...\n",strlen("wait ...\n"));
     }
 }
 
