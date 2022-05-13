@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <errno.h>
+//#include <sys/wait.h>
 //#include ".Global/global.h"
 #include "commands/cd_cmd/cd.c"
 #include "commands/exit_cmd/exit_cmd.c"
@@ -13,6 +14,8 @@
 #include "functions/printScript.c"
 #include "functions/free_inventory.c"
 #include "functions/useful_functions.c"
+#include "functions/reset.c"
+#include "functions/remove.c"
 
 #define error(a)   \
     {              \
@@ -103,11 +106,10 @@ int execute(int argc, char *argv[])
     default:
         // Parent process execution.
         // Wait until child process terminates.
-        // wait(&status);
+        // wait();
         return status;
     }
 }
-
 
 int main()
 {
@@ -115,12 +117,19 @@ int main()
     int eof = 0;
     int argc;
     char *args[MAXARGS];
-    char *cmd_list[9] = {"pwd", "cp", "ls", "cat", "exit", "mv", "Jarvis", "grep","man"};
+    char *cmd_list[9] = {"pwd", "cp", "ls", "cat", "exit", "mv", "Jarvis", "grep", "man"};
     int cmd_num;
 
     char current_directory[256];
-    system("rm -r Egypt");
-    system("cp -r EgyptLog/Egypt .");
+    // system("rm -r Egypt");
+    // system("cp -r EgyptLog/Egypt .");
+
+    if (!reset())
+    {
+        char *msg = "Sorry, there has been a problem loading the game :(";
+        printf("%s", msg);
+        exit(1);
+    }
 
     getcwd(current_directory, sizeof(current_directory));
 
@@ -130,16 +139,15 @@ int main()
     char introduction_path[255];
 
     getcwd(home_dir, sizeof(home_dir));
-    strcpy(jarvis_path,home_dir);
-    strcpy(menu_path,home_dir);
-    strcpy(introduction_path,home_dir);
+    strcpy(jarvis_path, home_dir);
+    strcpy(menu_path, home_dir);
+    strcpy(introduction_path, home_dir);
 
     strcat(home_dir, "/bin/");
 
-
-    strcat(jarvis_path,"/.Jarvis/Help");
-    strcat(menu_path,"/.History/Menu.txt");
-    strcat(introduction_path,"/.History/Introduction");
+    strcat(jarvis_path, "/.Jarvis/Help");
+    strcat(menu_path, "/.History/Menu.txt");
+    strcat(introduction_path, "/.History/Introduction");
 
     char *Prompt = current_directory;
 
@@ -149,7 +157,18 @@ int main()
     chdir(egypte_path);
 
     printScript(menu_path);
+
+    // Wait until the user presses enter
+    getchar();
     printScript(introduction_path);
+    /*if (isDir("../EgyptLog") == 0)
+    {
+        char *argv[20];
+        argv[0] = "rm";
+        argv[1] = "-r";
+        argv[2] = "../EgyptLog";
+        execute(3, argv);
+    }*/
 
     while (1)
     {
@@ -181,8 +200,17 @@ int main()
                 {
                     if (exit_cmd())
                     {
-                        //if (!free_inventory())
+                        // if (!free_inventory())
                         //{
+                        // Removing the main folder
+                        /*char rmArgs[MAXARGS];
+                        strcpy(rmArgs[0], "rm");
+                        strcpy(rmArgs[1], "-r");
+                        strcpy(rmArgs[2], "../EgyptLog");*/
+                        /*rmArgs[0] = "rm";
+                        rmArgs[1] = "-r";
+                        rmArgs[2] = "../EgyptLog";*/
+                        if (!removeMain())
                             exit(127);
                         //}
                     }
