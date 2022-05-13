@@ -20,7 +20,6 @@ void printScript(char *relPath)
     }
     else
     {
-        printf("path[%s]\n", path);
         free(path);
     }
 
