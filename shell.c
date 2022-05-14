@@ -6,17 +6,15 @@
 #include <unistd.h>
 #include <string.h>
 #include <errno.h>
-//#include <sys/wait.h>
-//#include ".Global/global.h"
+#include <sys/wait.h>
+#include <sys/types.h>
+#include ".Global/global.h"
 #include "commands/cd_cmd/cd.c"
 #include "commands/exit_cmd/exit_cmd.c"
 #include "DirName.c"
 #include "functions/printScript.c"
 #include "functions/free_inventory.c"
-#include "functions/useful_functions.c"
-#include "functions/reset.c"
-#include "functions/remove.c"
-#include "functions/history.c"
+//#include "functions/useful_functions.c"
 
 #define error(a)   \
     {              \
@@ -87,7 +85,7 @@ int read_args(int *argcp, char *args[], int max, int *eofp)
 
 ///////////////////////////////////////
 
-int execute(int argc, char *argv[])
+void execute(int argc, char *argv[])
 {
     int status;
     int pid = fork();
@@ -96,19 +94,23 @@ int execute(int argc, char *argv[])
     {
     case -1:
         // Error on creating the child process.
-        return 1;
+        write(1, "Failed to Fork()\n", strlen("Failed to Fork()\n"));
+        exit(23);
+        // return 1;
 
     case 0:
         // Child process' program.
         // Execute the give command, if possible.
-        execvp(argv[0], argv);
-        break;
-
+        if (execvp(argv[0], argv) < 0)
+        {
+            write(1, "Error while executing the command\n", strlen("Error while executing the command\n"));
+            exit(23);
+        }
     default:
         // Parent process execution.
         // Wait until child process terminates.
-        // wait();
-        return status;
+        wait(&status);
+        // write(1,"wait ...\n",strlen("wait ...\n"));
     }
 }
 
@@ -181,7 +183,14 @@ int main()
 
                 if (argc == 2)
                 {
-                    cd(args[1]);
+                    // cd(args[1]);
+                    if (strcmp(args[1], "firstRoom") == 0)
+                    {
+                        if (isinInventeroy("key"))
+                            cd(args[1]);
+                        else
+                            write(1, "You don't have the necessary object to enter this room\n", strlen("You don't have the necessary object to enter this room\n"));
+                    }
                 }
                 else
                 {
@@ -205,8 +214,11 @@ int main()
                         rmArgs[1] = "-r";
                         rmArgs[2] = "../EgyptLog";*/
                         if (!removeMain())
-                            exit(127);
-                        //}
+                            // printf("999999");
+                            if (free_inventory() == 0)
+                            {
+                                exit(127);
+                            }
                     }
                 }
                 else

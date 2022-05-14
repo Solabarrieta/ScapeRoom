@@ -30,3 +30,59 @@ int check_cmd(char *cmd, char *cmd_list[9])
     }
     return -1;
 }
+
+//function to check if a file exists in Inventory
+int isinInventeroy(char *filename)
+{
+    char *file_path;
+
+    char home_dir[255];
+
+    getcwd(home_dir, sizeof(home_dir));
+    char *cut=strstr(home_dir,"/ScapeRoom");
+
+    file_path = (char *)malloc(strlen(home_dir) + strlen("/.inventory/")+ strlen(filename));
+
+    strncpy(file_path,home_dir,cut-home_dir);
+    strcat(file_path, "/ScapeRoom/.inventory/");
+    strcat(file_path, filename);
+
+    FILE *file;
+    file=fopen(file_path,"r");
+
+    if(file)
+    {
+        //printf("Object exists in Inventory\n");
+        fclose(file);
+    return 1;
+    }
+    else{
+        //printf("You don't have the necessary object to enter this room\n");
+        return 0;
+    }
+
+}
+//function to get the root path of the game
+char *getRootPath()
+{
+    char home_dir[255];
+    char *root_path;
+
+    getcwd(home_dir, sizeof(home_dir));
+    char *cut=strstr(home_dir,"/ScapeRoom");
+
+    root_path = (char *)malloc(strlen(home_dir) + strlen("/ScapeRoom/")-strlen(cut));
+
+    strncpy(root_path,home_dir,cut-home_dir);
+
+    strcat(root_path, "/ScapeRoom/");
+
+    return root_path;
+}
+
+
+
+
+
+
+
