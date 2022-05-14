@@ -5,7 +5,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <stdlib.h>
-#include "../.Global/global.c"
+#include "../.Global/global.h"
 
 int free_inventory()
 {
@@ -15,7 +15,7 @@ int free_inventory()
     char home_dir[255];
     getcwd(home_dir, sizeof(home_dir));
 
-    //char *invPath = "/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/.inventory";
+    // char *invPath = "/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/.inventory";
     char *invPath = strcat(home_dir, "/.inventory");
     char *currPath;
     char size[256];

@@ -16,6 +16,7 @@
 #include "functions/useful_functions.c"
 #include "functions/reset.c"
 #include "functions/remove.c"
+#include "functions/history.c"
 
 #define error(a)   \
     {              \
@@ -161,14 +162,6 @@ int main()
     // Wait until the user presses enter
     getchar();
     printScript(introduction_path);
-    /*if (isDir("../EgyptLog") == 0)
-    {
-        char *argv[20];
-        argv[0] = "rm";
-        argv[1] = "-r";
-        argv[2] = "../EgyptLog";
-        execute(3, argv);
-    }*/
 
     while (1)
     {
@@ -181,6 +174,7 @@ int main()
         cmd_num = -1;
         if (read_args(&argc, args, MAXARGS, &eof) && argc > 0)
         {
+            history(argc, args);
             cmd_num = check_cmd(args[0], cmd_list);
             if (!strcmp(args[0], "cd"))
             {
@@ -221,10 +215,13 @@ int main()
                     write(1, error, strlen(error));
                 }
             }
+            else if (!strcmp(args[0], "history"))
+            {
+                printScript("../history_log.txt");
+            }
 
             else if (strcmp(args[0], cmd_list[6]) == 0)
             {
-
                 printScript(jarvis_path);
             }
             else if (cmd_num != -1)
