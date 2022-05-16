@@ -240,12 +240,21 @@ int main()
                         write(1, "You can't go back\n", strlen("You can't go back\n"));
                     else
                     {
-                        cd(args[1]);
-                        temp_cmd_path = (char *)malloc(strlen(args[1]) + strlen("cd \n"));
-                        strcat(temp_cmd_path, "cd ");
-                        strcat(temp_cmd_path, args[1]);
-                        strcat(temp_cmd_path, "\n");
-                        write(hist_fd, temp_cmd_path, strlen(temp_cmd_path));
+                        if (!isDenied(basename(current_directory), args[1]))
+                        {
+                            cd(args[1]);
+                            temp_cmd_path = (char *)malloc(strlen(args[1]) + strlen("cd \n"));
+                            strcat(temp_cmd_path, "cd ");
+                            strcat(temp_cmd_path, args[1]);
+                            strcat(temp_cmd_path, "\n");
+                            write(hist_fd, temp_cmd_path, strlen(temp_cmd_path));
+                        }
+                        else
+                        {
+                            char *msg = "Oh oh, looks like you cant get in. You need to find another way ! \n";
+                            write(0, msg, strlen(msg));
+                        }
+
                         // fputs("cd",his_file);
                     }
 
@@ -273,11 +282,12 @@ int main()
                     if (exit_cmd())
                     {
                         if (!removeMain())
-                            // printf("999999");
-                            // if (free_inventory() == 0)
-                            //{
-                            exit(127);
-                        //}
+                        {
+                            if (free_inventory() == 0)
+                            {
+                                exit(127);
+                            }
+                        }
                     }
                 }
                 else

@@ -106,8 +106,8 @@ int free_inventory()
     char home_dir[255];
     getcwd(home_dir, sizeof(home_dir));
 
-    // char *invPath = "/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/.inventory";
-    char *invPath = "/home/k1/github_scaperoom/ScapeRoom/.inventory";
+    char *invPath = "/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/.inventory";
+    // char *invPath = "/home/k1/github_scaperoom/ScapeRoom/.inventory";
 
     // char *invPath = strcat(home_dir, "/.inventory");
     char *currPath;
@@ -139,4 +139,40 @@ int free_inventory()
     {
         return -1;
     }
+}
+
+int isDenied(char *dir, char *room)
+{
+    int result = 0;
+    if (strcmp(dir, "Great_Pyramid") == 0 && strcmp(room, "FirstRoom") == 0)
+    {
+        result = 0;
+    }
+    else if (strcmp(dir, "FirstRoom") == 0 && strcmp(room, "SecondRoom") == 0)
+    {
+        if (isinInventeroy("lighter"))
+        {
+            result = 0;
+        }
+        else
+        {
+            result = 1;
+        }
+    }
+    else if (strcmp(dir, "SecondRoom") == 0 && strcmp(room, "ThirdRoom") == 0)
+    {
+        if (isinInventeroy("ring1") && isinInventeroy("ring2"))
+        {
+            result = 0;
+        }
+        else
+        {
+            result = 1;
+        }
+    }
+    else if (strcmp(dir, "ThirdRoom") == 0 && strcmp(room, "FinalRoom") == 0)
+    {
+        result = 0;
+    }
+    return result;
 }
