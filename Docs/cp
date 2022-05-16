@@ -11,7 +11,7 @@ SYNOPSIS
 DESCRIPTION
        Copy SOURCE to DEST, or multiple SOURCE(s) to DIRECTORY.
 
-       Mandatory arguments to long options are mandatory for short options too.
+       Cp stands for copy. This command is used to copy files or group of files or directory. It creates an exact image of a file on a disk with different file name. cp command require at least two filenames in its arguments.       
 
 AUTHOR
        Written by El Mehdi KIOUANE, Oier Solabarrieta, Ainara Escribano Viteri, Ane Amengual and Alex Garcia.
