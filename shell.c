@@ -13,7 +13,6 @@
 #include "commands/exit_cmd/exit_cmd.c"
 #include "DirName.c"
 #include "functions/printScript.c"
-#include "functions/free_inventory.c"
 #include "functions/useful_functions.c"
 #include "functions/remove.c"
 #include "functions/history.c"
@@ -195,12 +194,13 @@ int main()
                         if (isinInventeroy("key"))
                         {
                             cd(args[1]);
-                            history(argc, args);
+                            // history(argc, args);
                         }
 
                         else
                             write(1, "You don't have the necessary object to enter this room\n", strlen("You don't have the necessary object to enter this room\n"));
                     }
+                    history(argc, args);
                 }
                 else
                 {
@@ -213,22 +213,12 @@ int main()
                 {
                     if (exit_cmd())
                     {
-                        // if (!free_inventory())
-                        //{
-                        // Removing the main folder
-                        /*char rmArgs[MAXARGS];
-                        strcpy(rmArgs[0], "rm");
-                        strcpy(rmArgs[1], "-r");
-                        strcpy(rmArgs[2], "../EgyptLog");*/
-                        /*rmArgs[0] = "rm";
-                        rmArgs[1] = "-r";
-                        rmArgs[2] = "../EgyptLog";*/
                         if (!removeMain())
                             // printf("999999");
-                            if (free_inventory() == 0)
-                            {
-                                exit(127);
-                            }
+                            // if (free_inventory() == 0)
+                            //{
+                            exit(127);
+                        //}
                     }
                 }
                 else
@@ -239,7 +229,7 @@ int main()
             }
             else if (!strcmp(args[0], "history"))
             {
-                printScript("../history_log.txt");
+                printScript(OIER_HISTORY);
             }
 
             else if (strcmp(args[0], cmd_list[6]) == 0)
