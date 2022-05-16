@@ -79,8 +79,18 @@ char *getRootPath()
 
     return root_path;
 }
-
-
+/*
+int check_pipe(char *cmd_list[])
+{
+    int size= sizeof(cmd_list[0])/sizeof(cmd_list[0][0]);
+    int i;
+    for (i = 0; i < 10; i++)
+    {
+        if (strcmp("|", cmd_list[i]) == 0)
+            return i;
+    }
+    return -1;
+}*/
 
 
 

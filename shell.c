@@ -118,6 +118,44 @@ void execute(int argc, char *argv[])
     }
 }
 
+
+
+void pipe_(int argc, char ** argv) {
+    int i;
+
+    for( i=1; i<argc-1; i++)
+    {
+        int pd[2];
+        pipe(pd);
+
+        if (!fork()) {
+            dup2(pd[1], 1); // remap output back to parent
+            if(execlp(argv[i], argv[i], NULL)<0)
+            {
+                printf("taoussi layn3l tabounmouk\n");
+                exit(23);
+            }
+            //execvp(argv[0], argv);
+            perror("exec");
+            abort();
+
+        }
+
+        // remap output from previous child to input
+        dup2(pd[0], 0);
+        close(pd[1]);
+    }
+
+            if(execlp(argv[i], argv[i], NULL)<0)
+            {
+                printf("taoussi layn3l tabounmouk\n");
+                exit(23);
+            }
+            //execvp(argv[0], argv);
+            perror("exec");
+            abort();
+}
+
 int main()
 {
 
@@ -177,20 +215,43 @@ int main()
         Prompt = (char *)malloc(strlen(current_directory));
         strcpy(Prompt, current_directory);
         strcat(Prompt, " $ ");
+
         printDirName();
         // write(0, Prompt, strlen(Prompt));
         cmd_num = -1;
         if (read_args(&argc, args, MAXARGS, &eof) && argc > 0)
         {
+            /*if(!strcmp(args[2], "|"))
+            {
+
+                pipe_(argc,args);
+            }*/
 
             cmd_num = check_cmd(args[0], cmd_list);
+
+            char *his_path="/home/k1/github_scaperoom/ScapeRoom/history_log.txt";
+            int hist_fd = open(his_path,O_WRONLY|O_APPEND|O_CREAT,0666);
+            char *temp_cmd_path;
             if (!strcmp(args[0], "cd"))
             {
 
                 if (argc == 2)
                 {
-                    // cd(args[1]);
-                    if (strcmp(args[1], "firstRoom") == 0)
+
+                    if(strcmp(basename(current_directory),"Egypt")==0 && strcmp(args[1],"..")==0)
+                         write(1, "You can't go back\n", strlen( "You can't go back\n"));
+                    else
+                    {
+                        cd(args[1]);
+                         temp_cmd_path = (char *)malloc(strlen(args[1]) +strlen("cd \n"));
+                        strcat(temp_cmd_path,"cd ");
+                        strcat(temp_cmd_path,args[1]);
+                        strcat(temp_cmd_path,"\n");
+                          write(hist_fd,temp_cmd_path,strlen(temp_cmd_path));
+                         //fputs("cd",his_file);
+                    }
+
+                    /*if (strcmp(args[1], "firstRoom") == 0)
                     {
                         if (isinInventeroy("key"))
                         {
@@ -200,7 +261,7 @@ int main()
 
                         else
                             write(1, "You don't have the necessary object to enter this room\n", strlen("You don't have the necessary object to enter this room\n"));
-                    }
+                    }*/
                 }
                 else
                 {
@@ -239,13 +300,16 @@ int main()
             }
             else if (!strcmp(args[0], "history"))
             {
-                printScript("../history_log.txt");
+                printScript("/home/k1/github_scaperoom/ScapeRoom/history_log.txt");
             }
 
             else if (strcmp(args[0], cmd_list[6]) == 0)
             {
                 printScript(jarvis_path);
+                write(hist_fd,"Jarvis",strlen("Jarvis"));
+
             }
+
             else if (cmd_num != -1)
             {
                 args[0] = (char *)malloc(strlen(home_dir) + strlen(cmd_list[cmd_num]) + strlen("/bin/"));
@@ -253,12 +317,15 @@ int main()
                 strcpy(args[0], home_dir);
                 strcat(args[0], cmd_list[cmd_num]);
                 execute(argc, args);
+
+
                 history(argc, args);
             }
             else if (cmd_num == -1)
                 write(1, "Command Not Found\n ", 18);
         }
+        }
         if (eof)
             exit(0);
     }
-}
+

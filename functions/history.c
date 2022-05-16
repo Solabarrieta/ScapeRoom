@@ -52,7 +52,7 @@ int history(int args, char *argv[])
     }
     else if (args == 1)
     {
-        buffer = (char *)malloc(strlen(argv[0]) +strlen("  \n"));
+        buffer = (char *)malloc(strlen(argv[0]) +strlen(" \n"));
         strcpy(arg1, argv[0]);
         strcat(buffer, arg1);
         strcat(buffer, "\n");
