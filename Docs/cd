@@ -5,9 +5,8 @@ SYNOPSIS
        cd   [FOLDER]  
 
 DESCRIPTION
-        test test test test test test test test test test test
-        test test test test test test test test test test test test
-        test test test test test test test test test test
+        The cd command, also known as chdir (change directory), is a command-line shell command used to change the current working directory in various operating systems
+
 	
 AUTHOR
        Written by El Mehdi KIOUANE, Oier Solabarrieta, Ainara Escribano Viteri, Ane Amengual and Alex Garcia.

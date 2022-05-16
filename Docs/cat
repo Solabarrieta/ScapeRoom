@@ -5,9 +5,7 @@ SYNOPSIS
        cat  [FILE]
 
 DESCRIPTION
-       	test test test test test test test test test test test 
-	test test test test test test test test test test test test 
-	test test test test test test test test test test 
+       The cat (short for “concatenate“) command is one of the most frequently used command in Linux/Unix like operating systems. cat command allows us to create single or multiple files, view contain of file, concatenate files and redirect output in terminal or files.
 	
 AUTHOR
        Written by El Mehdi KIOUANE, Oier Solabarrieta, Ainara Escribano Viteri, Ane Amengual and Alex Garcia.
