@@ -102,6 +102,30 @@ int main(int argc, char **argv)
                 write(0, msg, strlen(msg));
                 return 1;
             }
+            if (!strcmp(argv[1], "library"))
+            {
+                char *inventory = "../.inventory/library";
+                char *msg = "Nolan begins to read and pick up books desperately without understanding anything. Suddenly, without meaning to, 
+                he hits a book with his head and the shelf moves...LEAVED ROOM FOR A NEW ROOM! The door to follow was the shelf itself.";
+                write(0, msg, strlen(msg));
+                mv(argv[1], inventory);
+                return 1;
+            }
+            if (!strcmp(argv[1], "ObjectsOfValue"))
+            {
+                char *inventory = "../.inventory/ObjectsOfValue";
+                char *msg = "There are some objects that cuold pay a hole continent!! There is some valuable jewellery such as necklaces, earrings,...
+                gold everywhere. But there's not our egg...";
+                write(0, msg, strlen(msg));
+                return 1;
+            }
+            if (!strcmp(argv[1], "weapons"))
+            {
+                char *inventory = "../.inventory/weapons";
+                char *msg = "Nolan takes the weapons but nothing, there is nothing written and they don't seem to be useful.";
+                write(0, msg, strlen(msg));
+                return 1;
+            }
             if (!strcmp(argv[1], "gold coins"))
             {
                 char *inventory = "../.inventory/gold coins";
