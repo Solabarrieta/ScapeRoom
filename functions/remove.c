@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <sys/wait.h>
 #include <errno.h>
+#include "../.Global/global.h"
 
 int removeMain()
 {
@@ -10,7 +11,7 @@ int removeMain()
     char *argv[20] = {
         "rm",
         "-r",
-        "../Egypt"};
+        OIER_HOME};
     int status;
     int pid = fork();
     if (pid == 0)

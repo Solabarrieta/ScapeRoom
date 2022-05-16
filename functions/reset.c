@@ -16,6 +16,8 @@ int reset()
     mkdir("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid", S_IRWXU);
     mkdir("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom", S_IRWXU);
     mkdir("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom", S_IRWXU);
+    mkdir("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/Skeleton1", S_IRWXU);
+    mkdir("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/Skeleton2", S_IRWXU);
     mkdir("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/ThirdRoom", S_IRWXU);
     mkdir("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/ThirdRoom/FinalRoom", S_IRWXU);
 
@@ -35,6 +37,9 @@ int reset()
     open(path, O_RDWR | O_CREAT, 0700);
     strcpy(path, auxPath);
     strcat(path, "/vase");
+    open(path, O_RDWR | O_CREAT, 0700);
+    strcpy(path, auxPath);
+    strcat(path, "/lighter");
     open(path, O_RDWR | O_CREAT, 0700);
     strcpy(path, auxPath);
 
@@ -57,6 +62,12 @@ int reset()
     open(path, O_RDWR | O_CREAT, 0700);
     strcpy(path, auxPath);
     strcat(path, "/tombStones");
+    open(path, O_RDWR | O_CREAT, 0700);
+    strcpy(path, auxPath);
+    strcat(path, "/Skeleton1/ring1");
+    open(path, O_RDWR | O_CREAT, 0700);
+    strcpy(path, auxPath);
+    strcat(path, "/Skeleton2/ring2");
     open(path, O_RDWR | O_CREAT, 0700);
     strcpy(path, auxPath);
 
