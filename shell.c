@@ -323,7 +323,7 @@ int main()
             }
             else if (!strcmp(args[0], "history"))
             {
-                printScript(OIER_HISTORY);
+                printScript(HISTORY);
             }
 
             else if (strcmp(args[0], cmd_list[6]) == 0)
@@ -376,7 +376,7 @@ int main()
         {
             char msg[256];
             char home[256];
-            strcpy(home, OIER_HOME);
+            strcpy(home, HOME);
             if (cd(home) == -1)
             {
                 write(3, strerror(errno), strlen(strerror(errno)));

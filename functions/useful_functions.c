@@ -214,26 +214,19 @@ void printScript(char *relPath)
 int reset()
 {
     char auxPath[256];
-    char path[256] = OIER_HOME;
+    char path[256] = HOME;
 
     // Creating the main directories
-    mkdir("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt", S_IRWXU);
-    mkdir("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid", S_IRWXU);
-    mkdir("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom", S_IRWXU);
-    mkdir("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom", S_IRWXU);
-    mkdir("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/Skeleton1", S_IRWXU);
-    mkdir("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/Skeleton2", S_IRWXU);
-    mkdir("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/ThirdRoom", S_IRWXU);
-    mkdir("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/ThirdRoom/BookStore", S_IRWXU);
-    mkdir("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/ThirdRoom/FinalRoom", S_IRWXU);
-    mkdir("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/ThirdRoom/FinalRoom/Tomb", S_IRWXU);
-
-    /*mkdir("/home/k1/github_scaperoom/ScapeRoom/Egypt", S_IRWXU);
-    mkdir("/home/k1/github_scaperoom/ScapeRoom/Egypt/Great_Pyramid", S_IRWXU);
-    mkdir("/home/k1/github_scaperoom/ScapeRoom/Egypt/Great_Pyramid/FirstRoom", S_IRWXU);
-    mkdir("/home/k1/github_scaperoom/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom", S_IRWXU);
-    mkdir("/home/k1/github_scaperoom/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/ThirdRoom", S_IRWXU);
-    mkdir("/home/k1/github_scaperoom/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/ThirdRoom/FinalRoom", S_IRWXU);*/
+    mkdir("/users/alumnos/acaf/acaf0240/Proyecto/ScapeRoom/Egypt", S_IRWXU);
+    mkdir("/users/alumnos/acaf/acaf0240/Proyecto/ScapeRoom/Egypt/Great_Pyramid", S_IRWXU);
+    mkdir("/users/alumnos/acaf/acaf0240/Proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom", S_IRWXU);
+    mkdir("/users/alumnos/acaf/acaf0240/Proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom", S_IRWXU);
+    mkdir("/users/alumnos/acaf/acaf0240/Proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/Skeleton1", S_IRWXU);
+    mkdir("/users/alumnos/acaf/acaf0240/Proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/Skeleton2", S_IRWXU);
+    mkdir("/users/alumnos/acaf/acaf0240/Proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/ThirdRoom", S_IRWXU);
+    mkdir("/users/alumnos/acaf/acaf0240/Proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/ThirdRoom/BookStore", S_IRWXU);
+    mkdir("/users/alumnos/acaf/acaf0240/Proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/ThirdRoom/FinalRoom", S_IRWXU);
+    mkdir("/users/alumnos/acaf/acaf0240/Proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/ThirdRoom/FinalRoom/Tomb", S_IRWXU);
 
     // Creating the files
     //  First Room
@@ -322,8 +315,8 @@ int reset()
     strcat(path, "/treasure");
     open(path, O_RDWR | O_CREAT, 0700);
 
-    chmod("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/ThirdRoom/FinalRoom", 0600);
-    chmod("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom", 0600);
+    chmod("/users/alumnos/acaf/acaf0240/Proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/ThirdRoom/FinalRoom", 0600);
+    chmod("/users/alumnos/acaf/acaf0240/Proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom", 0600);
 
     return 1;
 }
@@ -345,7 +338,7 @@ int history(int args, char *argv[])
     strcat(root_path, "/ScapeRoom/bin/");
     ////////////////////////////////////////////
 
-    int fd = open(OIER_HISTORY, O_RDWR | O_CREAT, 0777);
+    int fd = open(HISTORY, O_RDWR | O_CREAT, 0777);
     lseek(fd, 0, SEEK_END);
     // printf("%s", argv[0]);
 
@@ -393,13 +386,13 @@ int history(int args, char *argv[])
 void remove_history_file()
 {
 
-    if (access("/home/k1/github_scaperoom/ScapeRoom/history_log.txt", F_OK) == 0)
+    if (access("/users/alumnos/acaf/acaf0240/Proyecto/ScapeRoom/history_log.txt", F_OK) == 0)
     {
         // file exists
         char *argv[20] = {
             "rm",
             "-r",
-            "/home/k1/github_scaperoom/ScapeRoom/history_log.txt"};
+            "/users/alumnos/acaf/acaf0240/Proyecto/ScapeRoom/history_log.txt"};
         int status;
         int pid = fork();
         if (pid == 0)
@@ -411,10 +404,10 @@ void remove_history_file()
             ;
     }
 
-    if (access("/home/k1/github_scaperoom/ScapeRoom/history_log.txt", F_OK) != 0)
+    if (access("/users/alumnos/acaf/acaf0240/Proyecto/ScapeRoom/history_log.txt", F_OK) != 0)
     {
         // file doesn't exist
-        int fd = open("/home/k1/github_scaperoom/ScapeRoom/history_log.txt", O_RDWR | O_CREAT, 0777);
+        int fd = open("/users/alumnos/acaf/acaf0240/Proyecto/ScapeRoom/history_log.txt", O_RDWR | O_CREAT, 0777);
     }
 }
 
@@ -424,7 +417,7 @@ int removeMain()
     char *argv[20] = {
         "rm",
         "-r",
-        OIER_HOME};
+        HOME};
     int status;
     int pid = fork();
     if (pid == 0)
