@@ -330,9 +330,6 @@ int reset()
     strcat(path, "/treasure");
     open(path, O_RDWR | O_CREAT, 0700);
 
-    chmod("/users/alumnos/acaf/acaf0240/Proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/ThirdRoom/FinalRoom", 0600);
-    chmod("/users/alumnos/acaf/acaf0240/Proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom", 0600);
-
     return 1;
 }
 
