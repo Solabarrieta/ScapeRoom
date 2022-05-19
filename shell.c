@@ -83,7 +83,7 @@ int read_args(int *argcp, char *args[], int max, int *eofp)
 }
 
 ///////////////////////////////////////
-
+// execute commands without pipes
 void execute(int argc, char *argv[])
 {
     int status;
@@ -113,49 +113,68 @@ void execute(int argc, char *argv[])
     }
 }
 
-void pipe_(int argc, char **argv)
+// execute commands with pipes
+void executePipe(char *args[], char *argspipe[])
 {
-    int i;
 
-    for (i = 1; i < argc - 1; i++)
-    {
-        int pd[2];
-        pipe(pd);
-
-        if (!fork())
-        {
-            dup2(pd[1], 1); // remap output back to parent
-            if (execlp(argv[i], argv[i], NULL) < 0)
-            {
-                printf("taoussi layn3l tabounmouk\n");
-                exit(23);
-            }
-            // execvp(argv[0], argv);
-            perror("exec");
-            abort();
+    int fd[2];
+        if(pipe(fd) == -1) {
+          perror("Pipe failed");
+          exit(1);
         }
 
-        // remap output from previous child to input
-        dup2(pd[0], 0);
-        close(pd[1]);
-    }
+        if(fork() == 0)
+        {
+            close(STDOUT_FILENO);
+            //replacing stdout with pipe write
+            dup(fd[1]);
+            close(fd[0]);
+            close(fd[1]);
 
-    if (execlp(argv[i], argv[i], NULL) < 0)
-    {
-        printf("taoussi layn3l tabounmouk\n");
-        exit(23);
-    }
-    // execvp(argv[0], argv);
-    perror("exec");
-    abort();
+
+            execvp(args[0], args);
+            perror("execvp of cmd 1 failed");
+            exit(1);
+        }
+
+        if(fork() == 0)
+        {
+            close(STDIN_FILENO);
+            //replacing stdin with pipe read
+            dup(fd[0]);
+            close(fd[1]);
+            close(fd[0]);
+
+            /* char* cmd[] = { "wc", "-l", 0};
+             char* cmd[] = { "/home/k1/github_scaperoom/ScapeRoom/bin/wc", "-l", 0};
+            execvp(cmd[0], cmd);*/
+
+            execvp(argspipe[0], argspipe);
+            perror("OOOPS !! Error executing the second command");
+            exit(1);
+        }
+
+        close(fd[0]);
+        close(fd[1]);
+        wait(0);
+        wait(0);
+
 }
+
+
 
 int main()
 {
+
+    char *firstCmd[MAXLINE];
+    char *secondCmd[MAXLINE];
+    int withPipe = 0;
+
+
     int eof = 0;
     int argc;
     char *args[MAXARGS];
-    char *cmd_list[10] = {"pwd", "cp", "ls", "cat", "exit", "mv", "Jarvis", "grep", "man", "push"};
+    char *cmd_list[11] = {"pwd", "cp", "ls", "cat", "exit", "mv", "Jarvis", "grep", "man", "push","wc"};
     int cmd_num;
 
     char current_directory[256];
@@ -238,11 +257,7 @@ int main()
         cmd_num = -1;
         if (read_args(&argc, args, MAXARGS, &eof) && argc > 0)
         {
-            /*if(!strcmp(args[2], "|"))
-            {
-
-                pipe_(argc,args);
-            }*/
+            withPipe = processString(args,firstCmd, secondCmd);
 
             cmd_num = check_cmd(args[0], cmd_list);
 
@@ -364,9 +379,40 @@ int main()
 
                 strcpy(args[0], home_dir);
                 strcat(args[0], cmd_list[cmd_num]);
-                execute(argc, args);
+
+                char *tmp;
+               /* if(secondCmd[0]!=NULL){
+                tmp=malloc(strlen(secondCmd[0]));
+                strcpy(tmp,secondCmd[0]);
+
+                secondCmd[0] = (char *)malloc(strlen(home_dir) + strlen(tmp) + strlen("/bin/"));
+                strcpy(secondCmd[0], home_dir);
+                strcat(secondCmd[0], tmp);
+                }*/
+                //char *tmp;
+                if(firstCmd[0]!=NULL){
+                tmp=malloc(strlen(firstCmd[0]));
+                strcpy(tmp,firstCmd[0]);
+
+                firstCmd[0] = (char *)malloc(strlen(home_dir) + strlen(tmp) + strlen("/bin/"));
+                strcpy(firstCmd[0], home_dir);
+                strcat(firstCmd[0], tmp);
+                }
+
+                if (withPipe == 1)
+                    execute(argc, args);
 
                 history(argc, args);
+
+                if (withPipe == 2)
+                {
+                    if(strcmp(secondCmd[0],"wc")==0)
+                        executePipe(firstCmd, secondCmd);
+                    else
+                        write(1, "NO pipe available here use wc\n", strlen("NO pipe available here use wc\n"));
+
+                }
+
             }
             else if (cmd_num == -1)
                 write(1, "Command Not Found\n ", 18);

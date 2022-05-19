@@ -19,11 +19,11 @@ int isDir(char *filename)
 }
 
 // function to check if cmd exists in cmd_list
-int check_cmd(char *cmd, char *cmd_list[9])
+int check_cmd(char *cmd, char *cmd_list[11])
 {
     // int size= sizeof(cmd_list[0])/sizeof(cmd_list[0][0]);
     int i;
-    for (i = 0; i < 9; i++)
+    for (i = 0; i < 11; i++)
     {
         if (strcmp(cmd, cmd_list[i]) == 0)
             return i;
@@ -442,3 +442,110 @@ int removeMain()
         return 0;
     }
 }
+
+// function to check if there is a pipe in str
+//no pipes => return 0 else 1
+int isPipe(char* str, char *argspipe[])
+{
+    int i;
+    for (i = 0; i < 2; i++) {
+        argspipe[i] = strsep(&str, "|");
+        if (argspipe[i] == NULL)
+            break;
+    }
+
+    if (argspipe[1] == NULL)
+        return 0;
+    else {
+        return 1;
+    }
+}
+
+// function to split command by space
+// "ls test" => "ls" "test"
+void splitCmd(char* str, char *args[])
+{
+    int i;
+
+    for (i = 0; i < MAXLINE; i++) {
+        args[i] = strsep(&str, " ");
+
+        if (args[i] == NULL)
+            break;
+        if (strlen(args[i]) == 0)
+            i--;
+    }
+}
+
+//function to find the command before and after the pipe
+//input = man cat | wc ==>
+//args = man cat
+//argspipe = wc
+//return 1 if it's one command or 2 if there is a pipe
+int processString(char *input[], char *args[], char *argspipe[])
+{
+
+    char *str="";
+    str = (char *)malloc(strlen(*input));
+    int n=0;
+    for(int i=0;i<MAXARGS;i++)
+    {
+
+        if(input[i]==NULL)
+            break;
+        else
+            n++;
+
+    }
+
+    for(int i=0;i<n;i++)
+    {
+
+        strcat(str,input[i]);
+        strcat(str," ");
+    }
+
+    char* strpiped[2];
+    int piped = 0;
+
+    piped = isPipe(str, strpiped);
+
+    if (piped) {
+        splitCmd(strpiped[0], args);
+        splitCmd(strpiped[1], argspipe);
+
+    } else {
+
+        splitCmd(str, args);
+    }
+    return 1 + piped;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
