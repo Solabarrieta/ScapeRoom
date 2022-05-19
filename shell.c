@@ -157,6 +157,7 @@ int main()
     char *args[MAXARGS];
     char *cmd_list[10] = {"pwd", "cp", "ls", "cat", "exit", "mv", "Jarvis", "grep", "man", "push"};
     int cmd_num;
+    int firstRoom, finalRoom = 0;
 
     char current_directory[256];
     // system("rm -r Egypt");
@@ -259,7 +260,7 @@ int main()
                         write(1, "You can't go back\n", strlen("You can't go back\n"));
                     else
                     {
-                        if (!isDenied(basename(current_directory), args[1]))
+                        if (!isDenied(basename(current_directory), args[1], firstRoom, finalRoom))
                         {
                             cd(args[1]);
                             temp_cmd_path = (char *)malloc(strlen(args[1]) + strlen("cd \n"));
@@ -300,17 +301,11 @@ int main()
                 {
                     if (exit_cmd())
                     {
-                        int y = chmod("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom", 0700);
-                        int x = chmod("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/ThirdRoom", 0700);
-
-                        if (y == 0 && x == 0)
+                        if (!removeMain())
                         {
-                            if (!removeMain())
+                            if (free_inventory() == 0)
                             {
-                                if (free_inventory() == 0)
-                                {
-                                    exit(127);
-                                }
+                                exit(127);
                             }
                         }
                     }
@@ -346,15 +341,11 @@ int main()
                 strcpy(path, current_directory);
                 if (strcmp(args[1], "brick3") == 0)
                 {
-                    strcat(path, "/");
-                    strcat(path, "FirstRoom");
-                    chmod("./FirstRoom", 0700);
+                    firstRoom = 1;
                 }
                 else if (!strcmp(args[1], "BookStore/book3"))
                 {
-                    strcat(path, "/");
-                    strcat(path, "FinalRoom");
-                    chmod(path, 0700);
+                    finalRoom = 1;
                 }
             }
 

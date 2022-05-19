@@ -143,12 +143,20 @@ int free_inventory()
     }
 }
 
-int isDenied(char *dir, char *room)
+int isDenied(char *dir, char *room, int firstRoom, int finalRoom)
 {
     int result = 0;
     if (strcmp(dir, "Great_Pyramid") == 0 && strcmp(room, "FirstRoom") == 0)
     {
-        result = 0;
+        if (firstRoom)
+        {
+            result = 1;
+        }
+        else
+        {
+
+            result = 0;
+        }
     }
     else if (strcmp(dir, "FirstRoom") == 0 && strcmp(room, "SecondRoom") == 0)
     {
@@ -174,7 +182,14 @@ int isDenied(char *dir, char *room)
     }
     else if (strcmp(dir, "ThirdRoom") == 0 && strcmp(room, "FinalRoom") == 0)
     {
-        result = 0;
+        if (finalRoom)
+        {
+            result = 1;
+        }
+        else
+        {
+            result = 0;
+        }
     }
     return result;
 }

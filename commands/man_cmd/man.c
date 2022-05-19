@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <limits.h>
+#include <errno.h>
 #include "../../functions/useful_functions.c"
 
 void man(char *cmd_name)
