@@ -39,6 +39,7 @@
        printf("number of words  = %d\n",countW+1);
        printf("number of lines = %d\n",countL);
     }
+    fclose(fp);
 
 }
 
