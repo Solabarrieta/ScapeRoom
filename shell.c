@@ -234,10 +234,10 @@ int main()
 
     while (1)
     {
-        getcwd(current_directory, sizeof(current_directory));
+        /*getcwd(current_directory, sizeof(current_directory));
         Prompt = (char *)malloc(strlen(current_directory));
         strcpy(Prompt, current_directory);
-        strcat(Prompt, " $ ");
+        strcat(Prompt, " $ ");*/
 
         if (!strcmp(basename(current_directory), "Great_Pyramid"))
         {
@@ -417,6 +417,7 @@ int main()
             {
                 strcpy(msg, "Congratulations, you finished the game! We hope you enjoyed! \n");
                 write(0, msg, strlen(msg));
+
                 if (!removeMain())
                 {
                     if (free_inventory() == 0)
