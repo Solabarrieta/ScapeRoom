@@ -7,7 +7,8 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include "../.Global/global.h"
-
+#define MAXLINE 200
+#define MAXARGS 20
 // function to check if the given file is a real file or directory
 // return 0 if it's a directory
 // else is not dir
