@@ -5,34 +5,52 @@
 #include <stdlib.h>
 #include <dirent.h>
 #include <errno.h>
+#include "../../.Global/global.h"
+#include "../../functions/useful_functions.c"
 
 void ls(char *path)
 {
     // using the dirent library
     DIR *dir;
     struct dirent *ent;
+    struct stat info;
 
     int k = 0;
     // open the folder in the path
     if ((dir = opendir(path)) != NULL)
     {
         write(1, "\n", strlen("\n"));
-        write(1, "\n", strlen("\n"));
+
         // print all the files and directory within directory
         while ((ent = readdir(dir)) != NULL)
         {
 
             if (strcmp(ent->d_name, "..") != 0 && strcmp(ent->d_name, ".") != 0)
             {
-                write(0, ent->d_name, strlen(ent->d_name));
-                write(0, " ", strlen(" "));
-                write(0, " ", strlen(" "));
+                stat(ent->d_name, &info);
+                if (!S_ISREG(info.st_mode))
+                {
+                    printf("\033[0;34m");
+                    printf("%s", ent->d_name);
+                    // printf("\033[0;37m");
+                }
+                else
+                {
+                    printf("\033[0m%s  ", ent->d_name);
+                    //  printf("%s", ent->d_name);
+                    // write(0, ent->d_name, strlen(ent->d_name));
+                }
+                printf(" ");
+                printf(" ");
+                printf("\033[0m");
+
+                // write(0, ent->d_name, strlen(ent->d_name));
             }
 
             k++;
         }
-        write(1, "\n", strlen("\n"));
-        write(1, "\n", strlen("\n"));
+        printf("\n");
+        printf("\n");
         closedir(dir);
     }
     else if (errno == ENOENT)

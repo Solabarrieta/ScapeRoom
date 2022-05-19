@@ -1,0 +1,10 @@
+######  Instructions  ######  
+
+If you feel lost you can use Nolans voice assistant name Jarvis.
+
+1.- If you feel lost you can use Nolans voice assistant name Jarvis. Type Jarvis and it will answer you. 
+
+2.- Nolan can take some items and store them into his backpack. Use mv command to add them to his backpack. 
+     For example: mv usefull_item backpack
+
+3.- If you dont know how to use a command use the manual: man command_name. 

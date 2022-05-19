@@ -8,16 +8,12 @@
 #include <errno.h>
 #include <sys/wait.h>
 #include <sys/types.h>
+#include <sys/stat.h>
 #include ".Global/global.h"
 #include "commands/cd_cmd/cd.c"
 #include "commands/exit_cmd/exit_cmd.c"
 #include "DirName.c"
-#include "functions/printScript.c"
 #include "functions/useful_functions.c"
-#include "functions/remove.c"
-#include "functions/history.c"
-#include "functions/reset.c"
-#include "functions/remove_history_file.c"
 
 #define error(a)   \
     {              \
@@ -156,11 +152,10 @@ void pipe_(int argc, char **argv)
 
 int main()
 {
-
     int eof = 0;
     int argc;
     char *args[MAXARGS];
-    char *cmd_list[9] = {"pwd", "cp", "ls", "cat", "exit", "mv", "Jarvis", "grep", "man"};
+    char *cmd_list[10] = {"pwd", "cp", "ls", "cat", "exit", "mv", "Jarvis", "grep", "man", "push"};
     int cmd_num;
 
     char current_directory[256];
@@ -180,6 +175,7 @@ int main()
     char jarvis_path[255];
     char menu_path[255];
     char introduction_path[255];
+    int countGP, countFR, countSR, countTR, countLR = 0;
 
     getcwd(home_dir, sizeof(home_dir));
     strcpy(jarvis_path, home_dir);
@@ -204,6 +200,19 @@ int main()
     // Wait until the user presses enter
     getchar();
     printScript(introduction_path);
+    getchar();
+    char intro2[256] = SCRIPT;
+    strcat(intro2, "Introduction2");
+    printScript(intro2);
+    getchar();
+    char intro3[256] = SCRIPT;
+    strcat(intro3, "Introduction3");
+    printScript(intro3);
+    getchar();
+    char help[256] = SCRIPT;
+    strcat(help, "Help.txt");
+    printScript(help);
+    getchar();
 
     remove_history_file();
 
@@ -213,6 +222,16 @@ int main()
         Prompt = (char *)malloc(strlen(current_directory));
         strcpy(Prompt, current_directory);
         strcat(Prompt, " $ ");
+
+        if (!strcmp(basename(current_directory), "Great_Pyramid"))
+        {
+            if (countGP++ < 1)
+            {
+                char script[256] = SCRIPT;
+                strcat(script, "Great_Pyramid");
+                printScript(script);
+            }
+        }
 
         printDirName();
         // write(0, Prompt, strlen(Prompt));
@@ -281,11 +300,17 @@ int main()
                 {
                     if (exit_cmd())
                     {
-                        if (!removeMain())
+                        int y = chmod("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom", 0700);
+                        int x = chmod("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/ThirdRoom", 0700);
+
+                        if (y == 0 && x == 0)
                         {
-                            if (free_inventory() == 0)
+                            if (!removeMain())
                             {
-                                exit(127);
+                                if (free_inventory() == 0)
+                                {
+                                    exit(127);
+                                }
                             }
                         }
                     }
@@ -303,8 +328,34 @@ int main()
 
             else if (strcmp(args[0], cmd_list[6]) == 0)
             {
-                printScript(jarvis_path);
+                char path[256] = JARVIS;
+
+                /*if (strcmp(args[1], "help") == 0)
+                {
+                    strcat(path, "Help");
+                }*/
+
+                strcat(path, basename(current_directory));
+                printScript(path);
                 write(hist_fd, "Jarvis", strlen("Jarvis"));
+                strcpy(path, JARVIS);
+            }
+            else if (strcmp(args[0], "push") == 0)
+            {
+                char path[256];
+                strcpy(path, current_directory);
+                if (strcmp(args[1], "brick3") == 0)
+                {
+                    strcat(path, "/");
+                    strcat(path, "FirstRoom");
+                    chmod("./FirstRoom", 0700);
+                }
+                else if (!strcmp(args[1], "BookStore/book3"))
+                {
+                    strcat(path, "/");
+                    strcat(path, "FinalRoom");
+                    chmod(path, 0700);
+                }
             }
 
             else if (cmd_num != -1)
@@ -319,6 +370,29 @@ int main()
             }
             else if (cmd_num == -1)
                 write(1, "Command Not Found\n ", 18);
+        }
+
+        if (isinInventeroy("goldenEgg"))
+        {
+            char msg[256];
+            char home[256];
+            strcpy(home, OIER_HOME);
+            if (cd(home) == -1)
+            {
+                write(3, strerror(errno), strlen(strerror(errno)));
+            }
+            else
+            {
+                strcpy(msg, "Congratulations, you finished the game! We hope you enjoyed! \n");
+                write(0, msg, strlen(msg));
+                if (!removeMain())
+                {
+                    if (free_inventory() == 0)
+                    {
+                        exit(127);
+                    }
+                }
+            }
         }
     }
     if (eof)

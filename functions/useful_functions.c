@@ -6,6 +6,7 @@
 #include <sys/types.h>
 #include <fcntl.h>
 #include <stdlib.h>
+#include "../.Global/global.h"
 
 // function to check if the given file is a real file or directory
 // return 0 if it's a directory
@@ -37,13 +38,14 @@ int isinInventeroy(char *filename)
 
     char home_dir[255];
 
-    getcwd(home_dir, sizeof(home_dir));
-    char *cut = strstr(home_dir, "/ScapeRoom");
+    // getcwd(home_dir, sizeof(home_dir));
+    // char *cut = strstr(home_dir, "/ScapeRoom");
 
-    file_path = (char *)malloc(strlen(home_dir) + strlen("/.inventory/") + strlen(filename));
+    file_path = (char *)malloc(strlen(BACKPACK) + strlen(filename));
 
-    strncpy(file_path, home_dir, cut - home_dir);
-    strcat(file_path, "/ScapeRoom/.inventory/");
+    // strncpy(file_path, home_dir, cut - home_dir);
+    // strcat(file_path, "/ScapeRoom/.inventory/");*/
+    strcpy(file_path, BACKPACK);
     strcat(file_path, filename);
 
     FILE *file;
@@ -106,7 +108,7 @@ int free_inventory()
     char home_dir[255];
     getcwd(home_dir, sizeof(home_dir));
 
-    char *invPath = "/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/.inventory";
+    char invPath[256] = BACKPACK;
     // char *invPath = "/home/k1/github_scaperoom/ScapeRoom/.inventory";
 
     // char *invPath = strcat(home_dir, "/.inventory");
@@ -175,4 +177,275 @@ int isDenied(char *dir, char *room)
         result = 0;
     }
     return result;
+}
+
+// Function to print the contento of a file
+void printScript(char *relPath)
+{
+    char buffer[124];
+    int fd, fd2, size;
+
+    char *path = realpath(relPath, NULL);
+
+    fd = open(path, O_RDONLY);
+
+    if (path == NULL)
+    {
+        printf("cannot find file with name[%s]\n", relPath);
+    }
+    else
+    {
+        free(path);
+    }
+
+    /*while ((count = read(fd, buffer, sizeof(buffer))) != 0)
+    {
+        write(1, buffer, count);
+    }*/
+    write(1, "\n", strlen("\n"));
+    do
+    {
+        size = read(fd, buffer, sizeof(buffer));
+        write(1, buffer, size);
+    } while (size != 0);
+    write(1, "\n", strlen("\n"));
+}
+
+int reset()
+{
+    char auxPath[256];
+    char path[256] = OIER_HOME;
+
+    // Creating the main directories
+    mkdir("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt", S_IRWXU);
+    mkdir("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid", S_IRWXU);
+    mkdir("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom", S_IRWXU);
+    mkdir("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom", S_IRWXU);
+    mkdir("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/Skeleton1", S_IRWXU);
+    mkdir("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/Skeleton2", S_IRWXU);
+    mkdir("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/ThirdRoom", S_IRWXU);
+    mkdir("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/ThirdRoom/BookStore", S_IRWXU);
+    mkdir("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/ThirdRoom/FinalRoom", S_IRWXU);
+    mkdir("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/ThirdRoom/FinalRoom/Tomb", S_IRWXU);
+
+    /*mkdir("/home/k1/github_scaperoom/ScapeRoom/Egypt", S_IRWXU);
+    mkdir("/home/k1/github_scaperoom/ScapeRoom/Egypt/Great_Pyramid", S_IRWXU);
+    mkdir("/home/k1/github_scaperoom/ScapeRoom/Egypt/Great_Pyramid/FirstRoom", S_IRWXU);
+    mkdir("/home/k1/github_scaperoom/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom", S_IRWXU);
+    mkdir("/home/k1/github_scaperoom/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/ThirdRoom", S_IRWXU);
+    mkdir("/home/k1/github_scaperoom/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/ThirdRoom/FinalRoom", S_IRWXU);*/
+
+    // Creating the files
+    //  First Room
+    strcat(path, "Great_Pyramid");
+    strcpy(auxPath, path);
+    strcat(path, "/brick1");
+    open(path, O_RDWR | O_CREAT, 0700);
+    strcpy(path, auxPath);
+    strcat(path, "/brick2");
+    open(path, O_RDWR | O_CREAT, 0700);
+    strcpy(path, auxPath);
+    strcat(path, "/brick3");
+    open(path, O_RDWR | O_CREAT, 0700);
+    strcpy(path, auxPath);
+    strcat(path, "/brick4");
+    open(path, O_RDWR | O_CREAT, 0700);
+    strcpy(path, auxPath);
+
+    strcat(path, "/FirstRoom");
+    strcpy(auxPath, path);
+    strcat(path, "/statue");
+    open(path, O_RDWR | O_CREAT, 0700);
+    strcpy(path, auxPath);
+    strcat(path, "/vase");
+    open(path, O_RDWR | O_CREAT, 0700);
+    strcpy(path, auxPath);
+    strcat(path, "/lighter");
+    open(path, O_RDWR | O_CREAT, 0700);
+    strcpy(path, auxPath);
+
+    // Second Room
+    strcat(path, "/SecondRoom");
+    strcpy(auxPath, path);
+    strcat(path, "/graves");
+    open(path, O_RDWR | O_CREAT, 0700);
+    strcpy(path, auxPath);
+    strcat(path, "/parchments");
+    open(path, O_RDWR | O_CREAT, 0700);
+    strcpy(path, auxPath);
+    strcat(path, "/parchments");
+    open(path, O_RDWR | O_CREAT, 0700);
+    strcpy(path, auxPath);
+    strcat(path, "/tombStones");
+    open(path, O_RDWR | O_CREAT, 0700);
+    strcpy(path, auxPath);
+    strcat(path, "/Skeleton1/ring1");
+    int ring1 = open(path, O_RDWR | O_CREAT, 0700);
+    write(ring1, "2 4", strlen("2 4"));
+    strcpy(path, auxPath);
+    strcat(path, "/Skeleton2/ring2");
+    int ring2 = open(path, O_RDWR | O_CREAT, 0700);
+    write(ring2, "7 1", strlen("7 1"));
+    strcpy(path, auxPath);
+
+    // Third Room
+    strcat(path, "/ThirdRoom");
+    strcpy(auxPath, path);
+    strcat(path, "/BookStore/book1");
+    open(path, O_RDWR | O_CREAT, 0700);
+    strcpy(path, auxPath);
+    strcat(path, "/BookStore/book2");
+    open(path, O_RDWR | O_CREAT, 0700);
+    strcpy(path, auxPath);
+    strcat(path, "/BookStore/book3");
+    open(path, O_RDWR | O_CREAT, 0700);
+    strcpy(path, auxPath);
+    strcat(path, "/ObjectsOfValue");
+    open(path, O_RDWR | O_CREAT, 0700);
+    strcpy(path, auxPath);
+    strcat(path, "/weapons");
+    open(path, O_RDWR | O_CREAT, 0700);
+    strcpy(path, auxPath);
+
+    // Final Room
+    strcat(path, "/FinalRoom");
+    strcpy(auxPath, path);
+    strcat(path, "/goldCoins");
+    open(path, O_RDWR | O_CREAT, 0700);
+    strcpy(path, auxPath);
+    strcat(path, "/statues");
+    open(path, O_RDWR | O_CREAT, 0700);
+    strcpy(path, auxPath);
+    strcat(path, "/Tomb/goldenEgg");
+    open(path, O_RDWR | O_CREAT, 0700);
+    strcpy(path, auxPath);
+    strcat(path, "/treasure");
+    open(path, O_RDWR | O_CREAT, 0700);
+
+    chmod("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/ThirdRoom/FinalRoom", 0600);
+    chmod("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom", 0600);
+
+    return 1;
+}
+
+int history(int args, char *argv[])
+{
+    char *buffer;
+    char arg1[20] = "";
+    char arg2[20] = "";
+    char arg3[20] = "";
+
+    // generate the bin folder path
+    char *root_path;
+    char home_dir[255];
+    getcwd(home_dir, sizeof(home_dir));
+    char *cut = strstr(home_dir, "/ScapeRoom");
+    root_path = (char *)malloc(strlen(home_dir) + strlen("/ScapeRoom/bin/"));
+    strncpy(root_path, home_dir, cut - home_dir);
+    strcat(root_path, "/ScapeRoom/bin/");
+    ////////////////////////////////////////////
+
+    int fd = open(OIER_HISTORY, O_RDWR | O_CREAT, 0777);
+    lseek(fd, 0, SEEK_END);
+    // printf("%s", argv[0]);
+
+    if (args == 3)
+    {
+        buffer = (char *)malloc(strlen(argv[0]) + strlen(argv[1]) + strlen(argv[2]) + strlen("  \n"));
+        strcpy(arg1, argv[0]);
+        strcpy(arg2, argv[1]);
+        strcpy(arg3, argv[2]);
+        strcat(buffer, arg1);
+        strcat(buffer, " ");
+        strcat(buffer, arg2);
+        strcat(buffer, " ");
+        strcat(buffer, arg3);
+        strcat(buffer, "\n");
+        // printf("%s", buffer);
+    }
+    else if (args == 2)
+    {
+        buffer = (char *)malloc(strlen(argv[0]) + strlen(argv[1]) + strlen("  \n"));
+        strcpy(arg1, argv[0]);
+        strcpy(arg2, argv[1]);
+        strcat(buffer, arg1);
+        strcat(buffer, " ");
+        strcat(buffer, arg2);
+        strcat(buffer, "\n");
+        // printf("%s", buffer);
+    }
+    else if (args == 1)
+    {
+        buffer = (char *)malloc(strlen(argv[0]) + strlen("  \n"));
+        strcpy(arg1, argv[0]);
+        strcat(buffer, arg1);
+        strcat(buffer, "\n");
+        // printf("%s", buffer);
+    }
+
+    buffer = buffer + strlen(root_path);
+
+    write(fd, buffer, strlen(buffer));
+    close(fd);
+    return 0;
+}
+
+void remove_history_file()
+{
+
+    if (access("/home/k1/github_scaperoom/ScapeRoom/history_log.txt", F_OK) == 0)
+    {
+        // file exists
+        char *argv[20] = {
+            "rm",
+            "-r",
+            "/home/k1/github_scaperoom/ScapeRoom/history_log.txt"};
+        int status;
+        int pid = fork();
+        if (pid == 0)
+        {
+            execvp("rm", argv);
+        }
+
+        while (wait(&status) != -1 || errno != ECHILD)
+            ;
+    }
+
+    if (access("/home/k1/github_scaperoom/ScapeRoom/history_log.txt", F_OK) != 0)
+    {
+        // file doesn't exist
+        int fd = open("/home/k1/github_scaperoom/ScapeRoom/history_log.txt", O_RDWR | O_CREAT, 0777);
+    }
+}
+
+int removeMain()
+{
+
+    char *argv[20] = {
+        "rm",
+        "-r",
+        OIER_HOME};
+    int status;
+    int pid = fork();
+    if (pid == 0)
+    {
+        execvp("rm", argv);
+    }
+
+    while (wait(&status) != -1 || errno != ECHILD)
+        ;
+
+    // char path[256];
+    // getcwd(path, sizeof(path));
+    // write(1, path, strlen(path));
+    if (access("../Egypt", F_OK) == 0)
+    {
+        // file exists
+        return 1;
+    }
+    else
+    {
+        // file doesn't exist
+        return 0;
+    }
 }
