@@ -146,7 +146,7 @@ void executePipe(char *args[], char *argspipe[])
             close(fd[0]);
 
             /* char* cmd[] = { "wc", "-l", 0};
-             char* cmd[] = { "/home/k1/github_scaperoom/ScapeRoom/bin/wc", "-l", 0};
+             char* cmd[] = { "/users/alumnos/acaf/acaf0240/Proyecto/ScapeRoom/bin/wc", "-l", 0};
             execvp(cmd[0], cmd);*/
 
             execvp(argspipe[0], argspipe);
@@ -261,7 +261,7 @@ int main()
 
             cmd_num = check_cmd(args[0], cmd_list);
 
-            char *his_path = "/home/k1/github_scaperoom/ScapeRoom/history_log.txt";
+            char *his_path = "/users/alumnos/acaf/acaf0240/Proyecto/ScapeRoom/history_log.txt";
             int hist_fd = open(his_path, O_WRONLY | O_APPEND | O_CREAT, 0666);
             char *temp_cmd_path;
             if (!strcmp(args[0], "cd"))
@@ -315,8 +315,12 @@ int main()
                 {
                     if (exit_cmd())
                     {
-                        int y = chmod("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom", 0700);
-                        int x = chmod("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/ThirdRoom", 0700);
+
+                        /*int y = chmod("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom", 0700);
+                        int x = chmod("/home/oier/Documentos/uni/año2/ios/proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/ThirdRoom", 0700);*/
+
+                        int y = chmod("/users/alumnos/acaf/acaf0240/Proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom", 0700);
+                        int x = chmod("/users/alumnos/acaf/acaf0240/Proyecto/ScapeRoom/Egypt/Great_Pyramid/FirstRoom/SecondRoom/ThirdRoom", 0700);
 
                         if (y == 0 && x == 0)
                         {

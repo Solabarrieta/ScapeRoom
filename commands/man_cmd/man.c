@@ -10,7 +10,7 @@
 
 void man(char *cmd_name)
 {
-    char *cmd_list[9] = {"pwd", "cp", "ls", "cat", "exit", "mv", "Jarvis", "grep", "man"};
+    char *cmd_list[11] = {"pwd", "cp", "ls", "cat", "exit", "mv", "Jarvis", "grep", "man","push","wc"};
     int cmd_num;
     char *manual_path;
 
