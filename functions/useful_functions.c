@@ -56,16 +56,18 @@ int isinInventeroy(char *filename)
     {
         // printf("Object exists in Inventory\n");
         fclose(file);
+        free(file_path);
         return 1;
     }
     else
     {
+        free(file_path);
         // printf("You don't have the necessary object to enter this room\n");
         return 0;
     }
 }
 // function to get the root path of the game
-char *getRootPath()
+/*char *getRootPath()
 {
     char home_dir[255];
     char *root_path;
@@ -80,7 +82,7 @@ char *getRootPath()
     strcat(root_path, "/ScapeRoom/");
 
     return root_path;
-}
+}*/
 
 int isDirectoryEmpty(char *dirname)
 {
@@ -131,10 +133,12 @@ int free_inventory()
         chdir(currPath);
         if (isDirectoryEmpty(invPath))
         {
+            closedir(dir);
             return 0;
         }
         else
         {
+            closedir(dir);
             return 1;
         }
     }
@@ -210,6 +214,7 @@ void printScript(char *relPath)
         write(1, buffer, size);
     } while (size != 0);
     write(1, "\n", strlen("\n"));
+    close(fd);
 }
 
 int reset()
@@ -380,6 +385,8 @@ int history(int args, char *argv[])
     buffer = buffer + strlen(root_path);
 
     write(fd, buffer, strlen(buffer));
+    free(buffer);
+    free(root_path);
     close(fd);
     return 0;
 }
@@ -409,7 +416,10 @@ void remove_history_file()
     {
         // file doesn't exist
         int fd = open("/users/alumnos/acaf/acaf0240/Proyecto/ScapeRoom/history_log.txt", O_RDWR | O_CREAT, 0777);
+
+        close(fd);
     }
+
 }
 
 int removeMain()

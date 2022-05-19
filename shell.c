@@ -282,6 +282,7 @@ int main()
                             strcat(temp_cmd_path, args[1]);
                             strcat(temp_cmd_path, "\n");
                             write(hist_fd, temp_cmd_path, strlen(temp_cmd_path));
+                            close(hist_fd);
                         }
                         else
                         {
@@ -357,6 +358,7 @@ int main()
                 strcat(path, basename(current_directory));
                 printScript(path);
                 write(hist_fd, "Jarvis", strlen("Jarvis"));
+                close(hist_fd);
                 strcpy(path, JARVIS);
             }
             else if (strcmp(args[0], "push") == 0)
@@ -379,7 +381,7 @@ int main()
 
             else if (cmd_num != -1)
             {
-                args[0] = (char *)malloc(strlen(home_dir) + strlen(cmd_list[cmd_num]) + strlen("/bin/"));
+                args[0] = (char *)malloc(strlen(home_dir) + strlen(cmd_list[cmd_num]));
 
                 strcpy(args[0], home_dir);
                 strcat(args[0], cmd_list[cmd_num]);
@@ -398,20 +400,28 @@ int main()
                 tmp=malloc(strlen(firstCmd[0]));
                 strcpy(tmp,firstCmd[0]);
 
-                firstCmd[0] = (char *)malloc(strlen(home_dir) + strlen(tmp) + strlen("/bin/"));
+                firstCmd[0] = (char *)malloc(strlen(home_dir) + strlen(tmp) );
                 strcpy(firstCmd[0], home_dir);
                 strcat(firstCmd[0], tmp);
                 }
 
                 if (withPipe == 1)
+                {
                     execute(argc, args);
+                    free(args[0]);
+                }
+
 
                 history(argc, args);
 
                 if (withPipe == 2)
                 {
                     if(strcmp(secondCmd[0],"wc")==0)
+                    {
                         executePipe(firstCmd, secondCmd);
+                        free(firstCmd[0]);
+                    }
+
                     else
                         write(1, "NO pipe available here use wc\n", strlen("NO pipe available here use wc\n"));
 
